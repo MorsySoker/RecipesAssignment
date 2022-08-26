@@ -11,11 +11,11 @@ final class RecipesPresenter {
     
     // MARK: - Properties
     
-    let recipesInteractor: RecipesInteractor
+    let recipesInteractor: SearchRecipesInteractor
     
     // MARK: - init
     
-    init(recipesInteractor: RecipesInteractor) {
+    init(recipesInteractor: SearchRecipesInteractor) {
         
         self.recipesInteractor = recipesInteractor
     }

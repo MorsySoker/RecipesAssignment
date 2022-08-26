@@ -9,71 +9,57 @@ import UIKit
 
 class RecipesView: BaseViewController {
     
-    // MARK: - Views
+    // MARK: - Outlets
     
-    private lazy var headerLbl: UILabel = {
-        let lbl = UILabel(frame: .zero)
-        lbl.textAlignment = .left
-        lbl.textColor = UIColor.white
-        lbl.text = "Recipes Search"
-        lbl.font = UIFont(name: "Georgia", size: 20)
-        lbl.numberOfLines = 1
-        return lbl
-    }()
-    
-    private lazy var headerView: UIView = {
-        let header = UIView(frame: .zero)
-        header.backgroundColor = UIColor(named: "headerColor")
-        header.layer.cornerRadius = 8
-        header.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        header.clipsToBounds = true
-        header.insetsLayoutMarginsFromSafeArea = false
-        return header
-    }()
-    
-    private lazy var recipesSearchBar: UISearchBar = {
-        let sBar = UISearchBar(frame: .zero)
-        sBar.delegate = self
-        sBar.placeholder = "Search..."
-        sBar.backgroundColor = .clear
-        sBar.searchBarStyle = .minimal
-        return sBar
-    }()
-    
-    private lazy var recipesTableView: UITableView = {
-        let view = UITableView(frame: .zero)
-        view.register(RecipeCell.self, forCellReuseIdentifier: RecipeCell.identifier)
-        view.delegate = self
-        view.dataSource = self
-        view.showsVerticalScrollIndicator = false
-        view.showsHorizontalScrollIndicator = false
-        view.backgroundColor = .clear
-        view.separatorStyle = .none
-        return view
-    }()
+    @IBOutlet private weak var recipesTableView: UITableView!
+    @IBOutlet private weak var headerView: UIView!
+    @IBOutlet private weak var recipesSearchBar: UISearchBar!
     
     // MARK: - Properties
     
-    let recipePresenter: RecipesPresenter
+    let interactor: SearchRecipesInteractor
     
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Recipes Search"
-        view.insetsLayoutMarginsFromSafeArea = true
-        applyViewCode()
+        setupViews()
     }
     
     // MARK: - init
     
-    init(recipePresenter: RecipesPresenter) {
-        self.recipePresenter = recipePresenter
+    init(interactor: SearchRecipesInteractor) {
+        self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Methods
+    
+    private func setupViews() {
+        headerView.layer.cornerRadius = 8
+        headerView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        headerView.clipsToBounds = true
+        setupTableView()
+        setupSearchBar()
+    }
+    
+    private func setupTableView() {
+        recipesTableView.delegate = self
+        recipesTableView.dataSource = self
+        recipesTableView.register(
+            RecipeCell.self,
+            forCellReuseIdentifier: RecipeCell.identifier)
+       recipesTableView.reloadData()
+    }
+    
+    private func setupSearchBar() {
+        recipesSearchBar.delegate = self
+        recipesSearchBar.placeholder = "Search..."
+        recipesSearchBar.backgroundColor = .clear
     }
 }
 
@@ -106,49 +92,11 @@ extension RecipesView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        125
+        115
     }
 }
 
 extension RecipesView: UISearchBarDelegate {
     
     
-}
-
-// MARK: - Setup Views
-
-extension RecipesView: ViewCodeConfiguration {
-    
-    func buildHierarchy() {
-        
-        view.addSubview(headerView)
-        headerView.addSubview(headerLbl)
-        view.addSubview(recipesSearchBar)
-        view.addSubview(recipesTableView)
-        
-    }
-    
-    func setupConstraints() {
-        headerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(90)
-        }
-        
-        headerLbl.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-22)
-        }
-        
-        recipesSearchBar.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(14)
-            make.leading.trailing.equalToSuperview().inset(18)
-            make.height.equalTo(36)
-        }
-        
-        recipesTableView.snp.makeConstraints { make in
-            make.top.equalTo(recipesSearchBar.snp.bottom).offset(24)
-            make.leading.trailing.bottom.equalToSuperview()
-        }
-    }
 }

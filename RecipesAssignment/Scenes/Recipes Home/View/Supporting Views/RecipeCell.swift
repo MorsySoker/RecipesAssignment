@@ -69,7 +69,9 @@ class RecipeCell: UITableViewCell {
         stack.alignment = .center
         stack.spacing = 15
         stack.layer.cornerRadius = 8
+        stack.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         stack.backgroundColor = .white
+        stack.clipsToBounds = true
         stack.addShadow(color: .white, alpha: 0.09, xValue: 0, yValue: 2, blur: 20)
         return stack
     }()
@@ -84,6 +86,18 @@ class RecipeCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // Methods
+    
+    func configure(with recipe: RecipeCellViewModel) {
+        
+        recipeImage.setImage(with: recipe.imageLink)
+        recipeImage.layer.cornerRadius = 8
+        recipeImage.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        recipeTitleLbl.text = recipe.title
+        recipeSourceLbl.text = recipe.source
+        recipeHealthLbl.text = recipe.healthLabels
     }
 }
 
