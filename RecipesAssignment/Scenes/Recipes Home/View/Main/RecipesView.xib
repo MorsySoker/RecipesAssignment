@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecipesView" customModule="RecipesAssignment" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchRecipesView" customModule="RecipesAssignment" customModuleProvider="target">
             <connections>
                 <outlet property="headerView" destination="NIO-q2-HwZ" id="FGn-z2-AF6"/>
                 <outlet property="recipesSearchBar" destination="fJg-QJ-lQr" id="bA0-pK-3mo"/>

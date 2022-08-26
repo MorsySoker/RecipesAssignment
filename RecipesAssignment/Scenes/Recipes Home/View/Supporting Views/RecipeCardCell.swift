@@ -23,16 +23,15 @@ class RecipeCardCell: UITableViewCell {
         setupViews()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//
+//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+//    }
 
     // MARK: - Methods
     
-    func configure(_ recipe: RecipeCellViewModel)
-    {
+    func configure(_ recipe: RecipeCellViewModel) {
        recipeImage.setImage(with: recipe.imageLink)
         titleLabel.text = recipe.title
         sourceLabel.text = recipe.source

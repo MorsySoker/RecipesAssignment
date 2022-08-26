@@ -7,7 +7,14 @@
 
 import UIKit
 
-class RecipesView: BaseViewController {
+protocol SearchRecipesViewProtocol: AnyObject {
+    
+    var interactor: SearchRecipesInteractorProtocol? { get set }
+    
+    func displaySearchOrFilterResults(_ recipes: [RecipeCellViewModel])
+}
+
+class SearchRecipesView: BaseViewController {
     
     // MARK: - Outlets
     
@@ -17,27 +24,23 @@ class RecipesView: BaseViewController {
     
     // MARK: - Properties
     
-    let interactor: SearchRecipesInteractor
+    lazy var searchResults: [RecipeCellViewModel] = [RecipeCellViewModel]()
+    var interactor: SearchRecipesInteractorProtocol?
     
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-    }
-    
-    // MARK: - init
-    
-    init(interactor: SearchRecipesInteractor) {
-        self.interactor = interactor
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        setup()
     }
     
     // MARK: - Methods
+    
+    private func setup() {
+//        setupViews()
+        interactor?.search(WithKeyowrd: "chicken")
+    }
     
     private func setupViews() {
         headerView.layer.cornerRadius = 8
@@ -65,10 +68,11 @@ class RecipesView: BaseViewController {
 
 // MARK: - TableView DataSource
 
-extension RecipesView: UITableViewDataSource {
+extension SearchRecipesView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        
+        searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,7 +88,7 @@ extension RecipesView: UITableViewDataSource {
 
 // MARK: - TableView Delegate
 
-extension RecipesView: UITableViewDelegate {
+extension SearchRecipesView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -96,7 +100,16 @@ extension RecipesView: UITableViewDelegate {
     }
 }
 
-extension RecipesView: UISearchBarDelegate {
+extension SearchRecipesView: UISearchBarDelegate {
     
     
+}
+
+extension SearchRecipesView: SearchRecipesViewProtocol {
+    
+    func displaySearchOrFilterResults(_ recipes: [RecipeCellViewModel]) {
+        
+        searchResults = recipes
+        recipesTableView.reloadData()
+    }
 }

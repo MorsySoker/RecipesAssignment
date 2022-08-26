@@ -59,6 +59,7 @@ class RecipeCell: UITableViewCell {
                 recipeHealthLbl])
         stack.axis = .vertical
         stack.alignment = .leading
+        stack.distribution = .fillProportionally
         stack.spacing = 5
         return stack
     }()
@@ -82,6 +83,7 @@ class RecipeCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = UIColor(named: "background")
         applyViewCode()
+
     }
     
     required init?(coder: NSCoder) {
@@ -107,20 +109,36 @@ extension RecipeCell: ViewCodeConfiguration {
     
     func buildHierarchy() {
         
-        contentView.addSubview(containerStackView)
+        //        contentView.addSubview(containerStackView)
+        contentView.addSubview(recipeImage)
+        contentView.addSubview(recipeLblsStackContainer)
+        
     }
     
     func setupConstraints() {
         
-        containerStackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(25)
-            make.bottom.top.equalToSuperview().inset(12)
+        recipeImage.snp.makeConstraints { make in
+            make.width.equalToSuperview().multipliedBy(0.37535809018)
+            make.height.equalTo(105)
+            make.top.bottom.equalToSuperview().inset(5)
+            make.leading.equalToSuperview().offset(10)
         }
         
-        recipeImage.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.30)
-            make.height.equalToSuperview()
+        recipeLblsStackContainer.snp.makeConstraints { make in
+            make.leading.equalTo(recipeImage.snp.trailing).offset(5)
+            make.trailing.top.bottom.equalToSuperview()
+            make.height.equalTo(115)
         }
+        
+        //        containerStackView.snp.makeConstraints { make in
+        //            make.leading.trailing.equalToSuperview().inset(25)
+        //            make.bottom.top.equalToSuperview().inset(12)
+        //        }
+        //
+        //        recipeImage.snp.makeConstraints { make in
+        //            make.leading.trailing.bottom.equalToSuperview()
+        //            make.width.equalToSuperview().multipliedBy(0.30)
+        //            make.height.equalToSuperview()
+        //        }
     }
 }

@@ -21,12 +21,13 @@ final class SearchRecipesInteractor: SearchRecipesInteractorProtocol {
     
     lazy var searchResults: [Recipe] = [Recipe]()
     let serviceNetwork: SearchRecipesNetworkingProtocol
+    var presenter: SearchRecipesPresenter?
     
     // MARK: - init
     
-    init(serviceNetwork: SearchRecipesNetworkingProtocol){
+    init(serviceNetwork: SearchRecipesNetworkingProtocol) {
+        
         self.serviceNetwork = serviceNetwork
-        search(WithKeyowrd: "chicken")
     }
     
     // MARK: - Methods
@@ -39,10 +40,26 @@ final class SearchRecipesInteractor: SearchRecipesInteractorProtocol {
             
             switch result {
                 
-            case .success(let respose): print(respose.totalItems as Any)
+            case .success(let respose):
+                self.setInteractorProperties(with: respose)
+                print("All Connected BB 🥹")
             case .failure(let error): print(error.errorDescription as Any)
             }
-            
         }
+    }
+    
+    private func setInteractorProperties(with response: BaseResponse<Hit>) {
+        
+        guard let hits = response.data else {
+            return
+        }
+        
+        let recipes = getRecipesFrom(hits: hits)
+        searchResults = recipes
+        presenter?.interactor(self, didFetchSearchOrFilterResults: recipes)
+    }
+    
+    private func getRecipesFrom(hits: [Hit])-> [Recipe] {
+        return hits.compactMap{ $0.recipe }
     }
 }
