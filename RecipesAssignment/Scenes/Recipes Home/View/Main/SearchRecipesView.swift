@@ -55,6 +55,7 @@ final class SearchRecipesView: BaseViewController {
         setupTableView()
         setupSearchBar()
         setupHealthFilterCollection()
+        hideViews(hidden: true)
     }
     
     private func setupTableView() {
@@ -93,8 +94,14 @@ final class SearchRecipesView: BaseViewController {
     
     private func refreshTableView() {
         
+        hideViews(hidden: false)
         searchBar.stopLoadingIndicator()
         recipesTableView.reloadData()
+    }
+    
+    private func hideViews(hidden: Bool) {
+        recipesTableView.isHidden = hidden
+        healthFilterCollection.isHidden = hidden
     }
 }
 
