@@ -26,17 +26,9 @@ class SplashView: BaseViewController {
         
         applyViewCode()
         
-        let presenter = SearchRecipesPresenter()
-        let interactor = SearchRecipesInteractor(
-            serviceNetwork: SearchRecipesNetworking(
-                networkService: NetworkService()))
-        let view = SearchRecipesView()
-        view.interactor = interactor
-        presenter.searchRecipesView = view
-        interactor.presenter = presenter
         lottieView.play { [weak self] _ in
             self?.navigationController?.pushViewController(
-                view,
+                SearchRecipeConfigurator.configured(),
                 animated: true)
         }
     }

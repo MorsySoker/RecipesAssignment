@@ -10,7 +10,7 @@ import Alamofire
 
 enum SearchRecipesAPI {
     
-    case searchRecipes(_ query: String, _ healthLbl: String?)
+    case searchRecipes(_ query: String, _ healthLbl: String?, _ from: Int, _ to: Int)
 }
 
 extension SearchRecipesAPI: URLRequestBuilder {
@@ -22,17 +22,21 @@ extension SearchRecipesAPI: URLRequestBuilder {
     
     var parameters: Parameters? {
         switch self {
-        case .searchRecipes(let query, let healthlbl):
+        case .searchRecipes(let query, let healthlbl, let from, let to):
             
             if let healthlbl = healthlbl {
                 return ["q" : query,
                         "health" : healthlbl,
                         "app_id" : AppAuthKeys.appId,
-                        "app_key" : AppAuthKeys.appKey]
+                        "app_key" : AppAuthKeys.appKey,
+                        "from" : from,
+                        "to" : to]
             } else {
                 return ["q" : query,
                         "app_id" : AppAuthKeys.appId,
-                        "app_key" : AppAuthKeys.appKey]
+                        "app_key" : AppAuthKeys.appKey,
+                        "from" : from,
+                        "to" : to]
             }
         }
     }

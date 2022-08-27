@@ -13,10 +13,11 @@ class RecipeCell: UITableViewCell {
     
     private lazy var recipeImage: UIImageView = {
         let image = UIImageView(frame: .zero)
-        image.contentMode = .scaleAspectFill
+        image.contentMode = .scaleToFill
         image.layer.cornerRadius = 8
-        image.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        image.image = UIImage(named: "Image")
+        image.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+        image.backgroundColor = .red
+        image.clipsToBounds = true
         return image
     }()
     
@@ -46,8 +47,9 @@ class RecipeCell: UITableViewCell {
         lbl.textAlignment = .left
         lbl.textColor = UIColor(red: 0.371, green: 0.371, blue: 0.371, alpha: 1)
         lbl.text = "20 Minutes"
-        lbl.font = UIFont(name: "Georgia", size: 15)
-        lbl.numberOfLines = 1
+        lbl.font = UIFont(name: "Georgia", size: 10)
+        lbl.numberOfLines = 2
+        lbl.lineBreakMode = .byWordWrapping
         return lbl
     }()
     
@@ -61,19 +63,6 @@ class RecipeCell: UITableViewCell {
         stack.alignment = .leading
         stack.distribution = .fillProportionally
         stack.spacing = 5
-        return stack
-    }()
-    
-    private lazy var containerStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [recipeImage, recipeLblsStackContainer])
-        stack.axis = .horizontal
-        stack.alignment = .center
-        stack.spacing = 15
-        stack.layer.cornerRadius = 8
-        stack.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        stack.backgroundColor = .white
-        stack.clipsToBounds = true
-        stack.addShadow(color: .white, alpha: 0.09, xValue: 0, yValue: 2, blur: 20)
         return stack
     }()
     
@@ -95,8 +84,6 @@ class RecipeCell: UITableViewCell {
     func configure(with recipe: RecipeCellViewModel) {
         
         recipeImage.setImage(with: recipe.imageLink)
-        recipeImage.layer.cornerRadius = 8
-        recipeImage.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         recipeTitleLbl.text = recipe.title
         recipeSourceLbl.text = recipe.source
         recipeHealthLbl.text = recipe.healthLabels
@@ -129,16 +116,5 @@ extension RecipeCell: ViewCodeConfiguration {
             make.trailing.top.bottom.equalToSuperview()
             make.height.equalTo(115)
         }
-        
-        //        containerStackView.snp.makeConstraints { make in
-        //            make.leading.trailing.equalToSuperview().inset(25)
-        //            make.bottom.top.equalToSuperview().inset(12)
-        //        }
-        //
-        //        recipeImage.snp.makeConstraints { make in
-        //            make.leading.trailing.bottom.equalToSuperview()
-        //            make.width.equalToSuperview().multipliedBy(0.30)
-        //            make.height.equalToSuperview()
-        //        }
     }
 }

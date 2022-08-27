@@ -7,37 +7,41 @@
 
 import Foundation
 
-protocol SearchRecipesPresenterProtocol: AnyObject {
-    
-    var searchRecipesView: SearchRecipesViewProtocol? { get set}
-    
-    func interactor(_ interactor: SearchRecipesInteractorProtocol, didFetchSearchOrFilterResults results: [Recipe])
-}
+typealias SearchRecipesPresenterInput = SearchRecipesInteractorOutput
+typealias SearchRecipesPresenterOutput = SearchRecipesViewInput
 
-final class SearchRecipesPresenter: SearchRecipesPresenterProtocol {
-
+final class SearchRecipesPresenter {
+    
     // MARK: - Properties
     
-    weak var searchRecipesView: SearchRecipesViewProtocol?
+    weak var searchRecipesView: SearchRecipesPresenterOutput?
     
-    // MARK: - Methods
+    // MARK: -  Helper Methods
     
-    func interactor(_ interactor: SearchRecipesInteractorProtocol, didFetchSearchOrFilterResults results: [Recipe]) {
+    private func convertRecipesToRecipeCellViewModels(recipes: [Recipe])-> [RecipeCellViewModel] {
+        
+        
+        let resultsViewModels = recipes.compactMap { (recipe) -> RecipeCellViewModel? in
+            let healthLabels = recipe.healthLabels?.joined(separator: ", ")
+            let viewModel = RecipeCellViewModel(imageLink: recipe.image!, title: recipe.label ?? "", source: recipe.source ?? "", healthLabels: healthLabels ?? "")
+            
+            return viewModel
+        }
+        return resultsViewModels
+    }
+}
+
+extension SearchRecipesPresenter: SearchRecipesPresenterInput {
+    
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchOrFilterResults results: [Recipe]) {
         
         let recipesViewModels = convertRecipesToRecipeCellViewModels(recipes: results)
         searchRecipesView?.displaySearchOrFilterResults(recipesViewModels)
     }
     
-    // MARK: -  Helper Methods
-    
-    private func convertRecipesToRecipeCellViewModels(recipes: [Recipe])-> [RecipeCellViewModel]
-    {
-        let resultsViewModels = recipes.compactMap { (recipe) -> RecipeCellViewModel? in
-            let healthLabels = recipe.healthLabels.joined(separator: ", ")
-            let viewModel = RecipeCellViewModel(imageLink: recipe.image, title: recipe.label, source: recipe.source, healthLabels: healthLabels)
-            
-            return viewModel
-        }
-        return resultsViewModels
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchNextPageResults results: [Recipe]) {
+        
+        let recipesViewModels = convertRecipesToRecipeCellViewModels(recipes: results)
+        searchRecipesView?.displayNextPageResults(recipesViewModels)
     }
 }

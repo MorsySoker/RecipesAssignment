@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchRecipesView" customModule="RecipesAssignment" customModuleProvider="target">
+            <connections>
+                <outlet property="headerView" destination="Gm5-oI-cJq" id="eSW-HU-eJo"/>
+                <outlet property="recipesTableView" destination="uZt-wZ-LSm" id="Zb2-ay-2HQ"/>
+                <outlet property="searchBar" destination="qPG-Bv-m63" id="9vj-V5-A1q"/>
+                <outlet property="view" destination="iN0-l3-epB" id="dRn-et-1ei"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gm5-oI-cJq">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="124"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipe Search " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFd-iw-Edx">
+                            <rect key="frame" x="113" y="73" width="188.5" height="29"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="29" id="pAB-oA-vii"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Georgia-Bold" family="Georgia" pointSize="25"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" name="headerColor"/>
+                    <constraints>
+                        <constraint firstItem="FFd-iw-Edx" firstAttribute="centerX" secondItem="Gm5-oI-cJq" secondAttribute="centerX" id="5Pl-gA-L3H"/>
+                        <constraint firstAttribute="bottom" secondItem="FFd-iw-Edx" secondAttribute="bottom" constant="22" id="Kcm-6l-0Bw"/>
+                        <constraint firstAttribute="height" constant="124" id="zhb-fz-ePI"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="1TB-Mm-wc8">
+                    <rect key="frame" x="24" y="196" width="366" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="O6V-Ug-8z3"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZQ0-u4-PCR">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uZt-wZ-LSm">
+                    <rect key="frame" x="0.0" y="252" width="414" height="610"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter search Keyword" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qPG-Bv-m63" customClass="SearchTextField" customModule="RecipesAssignment" customModuleProvider="target">
+                    <rect key="frame" x="25" y="140" width="364" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="qaY-61-Gq1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="qPG-Bv-m63" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="CCD-7C-y3D"/>
+                <constraint firstItem="Gm5-oI-cJq" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="FjV-Q1-azR"/>
+                <constraint firstItem="Gm5-oI-cJq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Nj9-yc-xxP"/>
+                <constraint firstItem="Gm5-oI-cJq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="PY0-rr-NDz"/>
+                <constraint firstItem="uZt-wZ-LSm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="TA0-ov-UPK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qPG-Bv-m63" secondAttribute="trailing" constant="25" id="ULd-CS-l75"/>
+                <constraint firstItem="uZt-wZ-LSm" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="bIl-ie-PpA"/>
+                <constraint firstItem="1TB-Mm-wc8" firstAttribute="top" secondItem="qPG-Bv-m63" secondAttribute="bottom" constant="16" id="cXp-ET-Zot"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1TB-Mm-wc8" secondAttribute="trailing" constant="24" id="mDy-aI-nkE"/>
+                <constraint firstItem="uZt-wZ-LSm" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="nFu-ZF-kmu"/>
+                <constraint firstItem="qPG-Bv-m63" firstAttribute="top" secondItem="Gm5-oI-cJq" secondAttribute="bottom" constant="16" id="nH8-40-36n"/>
+                <constraint firstItem="1TB-Mm-wc8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="oCJ-Jv-L3j"/>
+                <constraint firstItem="uZt-wZ-LSm" firstAttribute="top" secondItem="1TB-Mm-wc8" secondAttribute="bottom" constant="16" id="zx9-uS-h0u"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="137.68115942028987" y="109.82142857142857"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="headerColor">
+            <color red="0.25099998712539673" green="0.70599997043609619" blue="0.5690000057220459" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

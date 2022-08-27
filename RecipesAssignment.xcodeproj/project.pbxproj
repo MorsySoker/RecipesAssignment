@@ -14,7 +14,6 @@
 		1D48EF2D28B64FD600BD436A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D48EF2C28B64FD600BD436A /* AppDelegate.swift */; };
 		1D48EF3628B64FD900BD436A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D48EF3528B64FD900BD436A /* Assets.xcassets */; };
 		1D48EF4328B6509F00BD436A /* SearchRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D48EF4228B6509F00BD436A /* SearchRecipesView.swift */; };
-		1D572DBA28B6D29400A36E2F /* RecipesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D572DB928B6D29400A36E2F /* RecipesView.xib */; };
 		1D7E68E528B80632008A949E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 1D7E68E428B80632008A949E /* Alamofire */; };
 		1D7E68E928B807D5008A949E /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E68E828B807D5008A949E /* URLRequestBuilder.swift */; };
 		1D7E68EB28B808B7008A949E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E68EA28B808B7008A949E /* NetworkService.swift */; };
@@ -22,7 +21,12 @@
 		1D7E68F028B836FF008A949E /* SearchRecipesNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E68EF28B836FF008A949E /* SearchRecipesNetworking.swift */; };
 		1D7E68F428B83F7A008A949E /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E68F328B83F7A008A949E /* BaseResponse.swift */; };
 		1D7E68F828B843E9008A949E /* RecipesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E68F728B843E9008A949E /* RecipesModel.swift */; };
+		1D8E5B0C28B939E0004DB5A4 /* SearchRecipesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D8E5B0B28B939E0004DB5A4 /* SearchRecipesView.xib */; };
+		1D8E5B0F28B94194004DB5A4 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8E5B0E28B94194004DB5A4 /* SearchTextField.swift */; };
+		1D8E5B1128B94D07004DB5A4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8E5B1028B94D07004DB5A4 /* String+Extension.swift */; };
 		1DA2951428B8F3820079AC94 /* AppAuthKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA2951328B8F3820079AC94 /* AppAuthKeys.swift */; };
+		1DA2951728B926AB0079AC94 /* SearchRecipeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA2951628B926AB0079AC94 /* SearchRecipeRouter.swift */; };
+		1DA2951A28B929270079AC94 /* SearchRecipeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA2951928B929270079AC94 /* SearchRecipeConfigurator.swift */; };
 		1DB4172528B7A2A800C19711 /* RecipeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB4172428B7A2A800C19711 /* RecipeCellViewModel.swift */; };
 		1DE8F5B428B654BA00C8FBBE /* ViewCodeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F5B028B654BA00C8FBBE /* ViewCodeConfiguration.swift */; };
 		1DE8F5B528B654BA00C8FBBE /* NibLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F5B228B654BA00C8FBBE /* NibLoadingView.swift */; };
@@ -54,14 +58,18 @@
 		1D48EF3528B64FD900BD436A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1D48EF3A28B64FD900BD436A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D48EF4228B6509F00BD436A /* SearchRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesView.swift; sourceTree = "<group>"; };
-		1D572DB928B6D29400A36E2F /* RecipesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipesView.xib; sourceTree = "<group>"; };
 		1D7E68E828B807D5008A949E /* URLRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
 		1D7E68EA28B808B7008A949E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		1D7E68ED28B834B6008A949E /* SearchRecipesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesAPI.swift; sourceTree = "<group>"; };
 		1D7E68EF28B836FF008A949E /* SearchRecipesNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesNetworking.swift; sourceTree = "<group>"; };
 		1D7E68F328B83F7A008A949E /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		1D7E68F728B843E9008A949E /* RecipesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesModel.swift; sourceTree = "<group>"; };
+		1D8E5B0B28B939E0004DB5A4 /* SearchRecipesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchRecipesView.xib; sourceTree = "<group>"; };
+		1D8E5B0E28B94194004DB5A4 /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		1D8E5B1028B94D07004DB5A4 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		1DA2951328B8F3820079AC94 /* AppAuthKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthKeys.swift; sourceTree = "<group>"; };
+		1DA2951628B926AB0079AC94 /* SearchRecipeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipeRouter.swift; sourceTree = "<group>"; };
+		1DA2951928B929270079AC94 /* SearchRecipeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipeConfigurator.swift; sourceTree = "<group>"; };
 		1DB4172428B7A2A800C19711 /* RecipeCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCellViewModel.swift; sourceTree = "<group>"; };
 		1DE8F5B028B654BA00C8FBBE /* ViewCodeConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewCodeConfiguration.swift; sourceTree = "<group>"; };
 		1DE8F5B228B654BA00C8FBBE /* NibLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibLoadingView.swift; sourceTree = "<group>"; };
@@ -126,6 +134,7 @@
 		1D48EF2B28B64FD600BD436A /* RecipesAssignment */ = {
 			isa = PBXGroup;
 			children = (
+				1D8E5B0D28B94160004DB5A4 /* CustomUI */,
 				1D7E68F128B83F55008A949E /* Model */,
 				1D48EF4128B6505D00BD436A /* App */,
 				1D7E68E628B8073E008A949E /* Services */,
@@ -201,6 +210,30 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		1D8E5B0D28B94160004DB5A4 /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				1D8E5B0E28B94194004DB5A4 /* SearchTextField.swift */,
+			);
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
+		1DA2951528B926770079AC94 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				1DA2951628B926AB0079AC94 /* SearchRecipeRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		1DA2951828B928A00079AC94 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				1DA2951928B929270079AC94 /* SearchRecipeConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
 		1DB4172328B7A27100C19711 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,10 +263,12 @@
 		1DE8F5B728B6558900C8FBBE /* Recipes Home */ = {
 			isa = PBXGroup;
 			children = (
+				1DA2951828B928A00079AC94 /* Configurator */,
 				1DB4172328B7A27100C19711 /* Model */,
 				1DE8F5DF28B6848000C8FBBE /* Interactor */,
 				1DE8F5DE28B6847500C8FBBE /* Presenter */,
 				1DE8F5B828B6559900C8FBBE /* View */,
+				1DA2951528B926770079AC94 /* Router */,
 			);
 			path = "Recipes Home";
 			sourceTree = "<group>";
@@ -251,7 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				1D48EF4228B6509F00BD436A /* SearchRecipesView.swift */,
-				1D572DB928B6D29400A36E2F /* RecipesView.xib */,
+				1D8E5B0B28B939E0004DB5A4 /* SearchRecipesView.xib */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -279,6 +314,7 @@
 				1DE8F5C528B65B9000C8FBBE /* UIScrollView+Extension.swift */,
 				1DE8F5C628B65B9000C8FBBE /* UILabel+Extensions.swift */,
 				1DE8F5C728B65B9000C8FBBE /* UICollectionView+Extensions.swift */,
+				1D8E5B1028B94D07004DB5A4 /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -396,7 +432,7 @@
 			files = (
 				1DE8F5DD28B6842400C8FBBE /* Colors.xcassets in Resources */,
 				1DE8F5DA28B67DE100C8FBBE /* food.json in Resources */,
-				1D572DBA28B6D29400A36E2F /* RecipesView.xib in Resources */,
+				1D8E5B0C28B939E0004DB5A4 /* SearchRecipesView.xib in Resources */,
 				1D48EF3628B64FD900BD436A /* Assets.xcassets in Resources */,
 				1D1BD15828B7979F00AD9BC0 /* RecipeCardCell.xib in Resources */,
 			);
@@ -414,15 +450,18 @@
 				1DE8F5B428B654BA00C8FBBE /* ViewCodeConfiguration.swift in Sources */,
 				1D7E68EB28B808B7008A949E /* NetworkService.swift in Sources */,
 				1DE8F5D728B67CF100C8FBBE /* SplashView.swift in Sources */,
+				1DA2951728B926AB0079AC94 /* SearchRecipeRouter.swift in Sources */,
 				1DE8F5CB28B65B9000C8FBBE /* UIView+Extensions.swift in Sources */,
 				1DE8F5CC28B65B9000C8FBBE /* UIButton+Extension.swift in Sources */,
 				1DE8F5D128B65B9000C8FBBE /* UICollectionView+Extensions.swift in Sources */,
 				1DE8F5E128B684A600C8FBBE /* SearchRecipesPresenter.swift in Sources */,
+				1D8E5B0F28B94194004DB5A4 /* SearchTextField.swift in Sources */,
 				1DE8F5C828B65B9000C8FBBE /* UIImageView+Extension.swift in Sources */,
 				1DE8F5CA28B65B9000C8FBBE /* UIColor+Extension.swift in Sources */,
 				1DE8F5D028B65B9000C8FBBE /* UILabel+Extensions.swift in Sources */,
 				1DE8F5B528B654BA00C8FBBE /* NibLoadingView.swift in Sources */,
 				1D7E68E928B807D5008A949E /* URLRequestBuilder.swift in Sources */,
+				1D8E5B1128B94D07004DB5A4 /* String+Extension.swift in Sources */,
 				1DB4172528B7A2A800C19711 /* RecipeCellViewModel.swift in Sources */,
 				1DE8F5CF28B65B9000C8FBBE /* UIScrollView+Extension.swift in Sources */,
 				1DE8F5CE28B65B9000C8FBBE /* UIBarButtonItem+Extensions.swift in Sources */,
@@ -430,6 +469,7 @@
 				1DE8F5E328B684F200C8FBBE /* SearchRecipesInteractor.swift in Sources */,
 				1DA2951428B8F3820079AC94 /* AppAuthKeys.swift in Sources */,
 				1D7E68F028B836FF008A949E /* SearchRecipesNetworking.swift in Sources */,
+				1DA2951A28B929270079AC94 /* SearchRecipeConfigurator.swift in Sources */,
 				1DE8F5CD28B65B9000C8FBBE /* UINavigationController+Extensions.swift in Sources */,
 				1DE8F5C928B65B9000C8FBBE /* UIViewController+Extensions.swift in Sources */,
 				1D7E68EE28B834B6008A949E /* SearchRecipesAPI.swift in Sources */,
@@ -564,6 +604,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Q8B3GBMTP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RecipesAssignment/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -590,6 +631,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Q8B3GBMTP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RecipesAssignment/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

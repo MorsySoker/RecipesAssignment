@@ -22,7 +22,7 @@ extension UIImageView {
             completionHandler: { [weak self](result) in
                 switch result {
                 case .failure:
-                    self?.image =  #imageLiteral(resourceName: "student")
+                    self?.image =  #imageLiteral(resourceName: "Image")
                 default:
                     break
                 }
