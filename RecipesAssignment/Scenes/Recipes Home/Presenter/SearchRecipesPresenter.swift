@@ -20,7 +20,6 @@ final class SearchRecipesPresenter {
     
     private func convertRecipesToRecipeCellViewModels(recipes: [Recipe])-> [RecipeCellViewModel] {
         
-        
         let resultsViewModels = recipes.compactMap { (recipe) -> RecipeCellViewModel? in
             let healthLabels = recipe.healthLabels?.joined(separator: ", ")
             let viewModel = RecipeCellViewModel(imageLink: recipe.image!, title: recipe.label ?? "", source: recipe.source ?? "", healthLabels: healthLabels ?? "")
@@ -43,5 +42,13 @@ extension SearchRecipesPresenter: SearchRecipesPresenterInput {
         
         let recipesViewModels = convertRecipesToRecipeCellViewModels(recipes: results)
         searchRecipesView?.displayNextPageResults(recipesViewModels)
+    }
+    
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchSuggestions suggestions: [String]) {
+        searchRecipesView?.setSearchSuggestion(suggestions)
+    }
+    
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFailWith error: Error) {
+        searchRecipesView?.displayError(WithMessage: error.localizedDescription)
     }
 }

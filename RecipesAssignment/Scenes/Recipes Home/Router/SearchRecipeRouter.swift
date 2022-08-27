@@ -23,6 +23,7 @@ final class SearchRecipeRouter {
 extension SearchRecipeRouter: SearchRecipeRoutingLogic {
     
     func showDetails(for recipe: Recipe) {
-        print(recipe.source)
+        let recipeDetailVC = RecipeDetailConfigurator.configured(with: recipe)
+        view?.navigationController?.pushViewController(recipeDetailVC, animated: true)
     }
 }

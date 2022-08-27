@@ -11,6 +11,8 @@ protocol SearchRecipesViewInput: AnyObject {
     
     func displaySearchOrFilterResults(_ recipes: [RecipeCellViewModel])
     func displayNextPageResults(_ recipes: [RecipeCellViewModel])
+    func setSearchSuggestion(_ suggestions: [String])
+    func displayError(WithMessage message: String)
 }
 
 protocol SearchRecipesViewOutput: AnyObject {
@@ -18,6 +20,7 @@ protocol SearchRecipesViewOutput: AnyObject {
     func search(WithKeyowrd query: String)
     func filterResults(WithFilter filter: HealthFilters)
     func fetchNextPageForSearchResults()
+    func getSearchResult(_ IndexPath: Int) -> Recipe
 }
 
 final class SearchRecipesView: BaseViewController {
@@ -121,8 +124,9 @@ extension SearchRecipesView: UITableViewDataSource {
 extension SearchRecipesView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        let recipe = searchResults[indexPath.item]
-        //        router?.showDetails(for: recipe)
+        if let recipe = interactor?.getSearchResult(indexPath.row) {
+            router?.showDetails(for: recipe)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -165,7 +169,7 @@ extension SearchRecipesView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let searchKeyword = textField.text, searchKeyword.isNotEmptyOrSpaces()
         else {
-            //            displayError(WithMessage: "Please Enter Valid Sarch Keyword")
+            displayError(WithMessage: "Please Enter Valid Sarch Keyword")
             textField.resignFirstResponder()
             return true
         }
@@ -191,6 +195,16 @@ extension SearchRecipesView: SearchRecipesViewInput {
     func displayNextPageResults(_ recipes: [RecipeCellViewModel]) {
         searchResults = recipes
         refreshTableView()
+    }
+    
+    func setSearchSuggestion(_ suggestions: [String]) {
+        
+        searchBar.filterStrings(suggestions)
+    }
+    
+    func displayError(WithMessage message: String) {
+        view.makeToast(message)
+        searchBar.stopLoadingIndicator()
     }
 }
 
@@ -222,7 +236,7 @@ extension SearchRecipesView: UICollectionViewDataSource {
 // MARK: - health Filter Collection Delegate
 
 extension SearchRecipesView: UICollectionViewDelegate {
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let filter = HealthFilters.allCases[indexPath.row]
         interactor?.filterResults(WithFilter: filter)

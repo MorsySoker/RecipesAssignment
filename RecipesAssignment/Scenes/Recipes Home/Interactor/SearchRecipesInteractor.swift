@@ -13,12 +13,15 @@ protocol SearchRecipesInteractorOutput {
     
     func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchOrFilterResults results: [Recipe])
     func interactor(_ interactor: SearchRecipesInteractorInput, didFetchNextPageResults results: [Recipe])
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchSuggestions suggestions: [String])
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFailWith error: Error)
 }
 
 
 final class SearchRecipesInteractor {
     
     // MARK: - Properties
+    
     private var from: Int = 0
     private var to: Int = 10
     private var totalItems: Int = 0
@@ -26,9 +29,15 @@ final class SearchRecipesInteractor {
     private var isAPaginationRequest = false
     private var lastSearchkeyword: String = ""
     private var lastSearchFilter: HealthFilters?
-    lazy var searchResults: [Recipe] = [Recipe]()
+    private lazy var suggestions: [String] = [String]()
+    private lazy var searchResults: [Recipe] = [Recipe]()
     var serviceNetwork: SearchRecipesNetworkingProtocol?
+    var searchSuggestionWorker: SearchSuggestionWorkerProtocol?
     var presenter: SearchRecipesPresenterInput?
+    
+    // MARK: - init
+    
+    init() { getSearchSuggestions() }
 }
 
 // MARK: - Interactor Input Confirmation
@@ -40,17 +49,24 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         let searchKeyword = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard searchKeyword != lastSearchkeyword else { return }
         
-        resetInteractorProperties()
+        if !suggestions.contains(searchKeyword),
+           let suggestionWorker = searchSuggestionWorker {
+            suggestions = suggestionWorker.addNewSuggestion(searchKeyword)
+            presenter?.interactor(self, didFetchSearchSuggestions: suggestions)
+        }
+        
+        resetPaginationProperties()
         
         serviceNetwork?.searchRecipes(with: searchKeyword,
-                                     healthLbl: nil,
-                                     from: from,
-                                     to: to)
+                                      healthLbl: nil,
+                                      from: from,
+                                      to: to)
         { [unowned self] result in
             switch result {
             case .success(let respose):
                 self.setInteractorProperties(with: respose)
-            case .failure(let error): print(error.errorDescription as Any)
+            case .failure(let error):
+                presenter?.interactor(self, didFailWith: error)
             }
             lastSearchkeyword = searchKeyword
             isAPaginationRequest = false
@@ -61,7 +77,7 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         
         guard filter != lastSearchFilter else { return }
         let filterRawValue = filter == .all ? nil : filter.rawValue
-        resetInteractorProperties()
+        resetPaginationProperties()
         
         serviceNetwork?.searchRecipes(with: lastSearchkeyword,
                                       healthLbl: filterRawValue,
@@ -75,7 +91,7 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
                 setInteractorProperties(with: response)
                 
             case .failure(let error):
-                print(error.localizedDescription)
+                presenter?.interactor(self, didFailWith: error)
             }
             isAPaginationRequest = false
             lastSearchFilter = filter
@@ -96,9 +112,9 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         isAPaginationRequest = true
         
         service.searchRecipes(with: lastSearchkeyword,
-                                     healthLbl: nil,
-                                     from: from,
-                                     to: to)
+                              healthLbl: nil,
+                              from: from,
+                              to: to)
         { [unowned self] result in
             switch result {
             case .success(let respose):
@@ -107,6 +123,19 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
                 print(error.errorDescription as Any)
             }
             isAPaginationRequest = false
+        }
+    }
+    
+    private func getSearchSuggestions()
+    {
+        searchSuggestionWorker?.fetchSuggestions { [unowned self] result in
+            switch result {
+            case .success(let suggestions):
+                self.suggestions = suggestions
+                
+            case .failure(let error):
+                presenter?.interactor(self, didFailWith: error)
+            }
         }
     }
     
@@ -120,10 +149,14 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
               let to = response.to,
               let from = response.from,
               let totalItems = response.totalItems else {
+            presenter?.interactor(self, didFailWith: SearchError.invalidSearchKeyowrd)
             return
         }
         
         guard !hits.isEmpty else {
+            
+            if isAPaginationRequest { return }
+            presenter.interactor(self, didFailWith: SearchError.emptySearch)
             return
         }
         
@@ -147,10 +180,15 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         return hits.compactMap{ $0.recipe }
     }
     
-    private func resetInteractorProperties() {
+    private func resetPaginationProperties() {
         hasMore = true
         from = 0
         to = 10
         totalItems = 0
+    }
+    
+     func getSearchResult(_ IndexPath: Int) -> Recipe {
+        
+        searchResults[IndexPath]
     }
 }

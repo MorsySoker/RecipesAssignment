@@ -9,7 +9,6 @@ import Foundation
 
 protocol SearchRecipeConfiguratorProtocol {
     
-//    static func configured(_ vc: SearchRecipesView) -> SearchRecipesView
     static func configured() -> SearchRecipesView
 }
 
@@ -20,6 +19,7 @@ final class SearchRecipeConfigurator: SearchRecipeConfiguratorProtocol {
         let vc = SearchRecipesView()
         let service =  SearchRecipesNetworking(
             networkService: NetworkService())
+        let suggestionWorker = SearchSuggestionWorker()
         let interactor = SearchRecipesInteractor()
         let presenter = SearchRecipesPresenter()
         let router = SearchRecipeRouter()
@@ -27,6 +27,7 @@ final class SearchRecipeConfigurator: SearchRecipeConfiguratorProtocol {
         presenter.searchRecipesView = vc
         interactor.presenter = presenter
         interactor.serviceNetwork = service
+        interactor.searchSuggestionWorker = suggestionWorker
         vc.interactor =  interactor
         vc.router = router
         

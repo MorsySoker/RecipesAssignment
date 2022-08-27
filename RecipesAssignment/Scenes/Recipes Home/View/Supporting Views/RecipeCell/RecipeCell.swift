@@ -16,7 +16,6 @@ class RecipeCell: UITableViewCell {
         image.contentMode = .scaleToFill
         image.layer.cornerRadius = 8
         image.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
-        image.backgroundColor = .red
         image.clipsToBounds = true
         return image
     }()
@@ -25,7 +24,6 @@ class RecipeCell: UITableViewCell {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .left
         lbl.textColor = UIColor(red: 0.371, green: 0.371, blue: 0.371, alpha: 1)
-        lbl.text = "Green tea noodles with sticky sweet chilli salmon"
         lbl.font = UIFont(name: "Georgia", size: 16)
         lbl.numberOfLines = 0
         lbl.lineBreakMode = .byWordWrapping
@@ -36,7 +34,6 @@ class RecipeCell: UITableViewCell {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .left
         lbl.textColor = UIColor(red: 0.371, green: 0.371, blue: 0.371, alpha: 1)
-        lbl.text = " 120 Cal"
         lbl.font = UIFont(name: "Georgia", size: 15)
         lbl.numberOfLines = 1
         return lbl
@@ -46,7 +43,6 @@ class RecipeCell: UITableViewCell {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .left
         lbl.textColor = UIColor(red: 0.371, green: 0.371, blue: 0.371, alpha: 1)
-        lbl.text = "20 Minutes"
         lbl.font = UIFont(name: "Georgia", size: 10)
         lbl.numberOfLines = 2
         lbl.lineBreakMode = .byWordWrapping
@@ -96,7 +92,6 @@ extension RecipeCell: ViewCodeConfiguration {
     
     func buildHierarchy() {
         
-        //        contentView.addSubview(containerStackView)
         contentView.addSubview(recipeImage)
         contentView.addSubview(recipeLblsStackContainer)
         
