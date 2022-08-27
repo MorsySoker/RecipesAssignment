@@ -43,7 +43,7 @@ class NetworkService: NetworkServiceProtocol, ObservableObject {
                 }
                 print(result.request as Any)  // original URL request
                 print(result.response as Any) // URL response
-                print(result.data as Any)     // server data
+                print(String(data: result.data! , encoding: .utf8) as Any)// server data
                 print(result.result)   // result of response serialization
                 print("🎯 \(String(describing: result.value))")
                 #endif

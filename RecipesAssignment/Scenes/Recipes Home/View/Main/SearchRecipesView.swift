@@ -16,6 +16,7 @@ protocol SearchRecipesViewInput: AnyObject {
 protocol SearchRecipesViewOutput: AnyObject {
     
     func search(WithKeyowrd query: String)
+    func filterResults(WithFilter filter: HealthFilters)
     func fetchNextPageForSearchResults()
 }
 
@@ -26,6 +27,7 @@ final class SearchRecipesView: BaseViewController {
     @IBOutlet private weak var recipesTableView: UITableView!
     @IBOutlet private weak var headerView: UIView!
     @IBOutlet private weak var searchBar: SearchTextField!
+    @IBOutlet private weak var healthFilterCollection: UICollectionView!
     
     // MARK: - Properties
     
@@ -38,14 +40,10 @@ final class SearchRecipesView: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        setupViews()
     }
     
     // MARK: - Methods
-    
-    private func setup() {
-        setupViews()
-    }
     
     private func setupViews() {
         headerView.layer.cornerRadius = 8
@@ -53,6 +51,7 @@ final class SearchRecipesView: BaseViewController {
         headerView.clipsToBounds = true
         setupTableView()
         setupSearchBar()
+        setupHealthFilterCollection()
     }
     
     private func setupTableView() {
@@ -70,6 +69,23 @@ final class SearchRecipesView: BaseViewController {
         searchBar.theme.font = .systemFont(ofSize: 15)
         searchBar.theme.cellHeight = 40
         searchBar.theme.separatorColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.5)
+    }
+    
+    private func setupHealthFilterCollection() {
+        
+        healthFilterCollection.showsVerticalScrollIndicator = false
+        healthFilterCollection.showsHorizontalScrollIndicator = false
+        healthFilterCollection.delegate = self
+        healthFilterCollection.dataSource = self
+        healthFilterCollection.register(HealthFilterCell.self,
+                                        forCellWithReuseIdentifier: HealthFilterCell.identifier)
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        layout.minimumInteritemSpacing = 8
+        layout.minimumLineSpacing = 8
+        layout.scrollDirection  = .horizontal
+        healthFilterCollection!.collectionViewLayout = layout
+        healthFilterCollection.reloadData()
     }
     
     private func refreshTableView() {
@@ -160,6 +176,8 @@ extension SearchRecipesView: UITextFieldDelegate {
     }
 }
 
+// MARK: - View input Protocol Confirmation
+
 extension SearchRecipesView: SearchRecipesViewInput {
     
     func displaySearchOrFilterResults(_ recipes: [RecipeCellViewModel]) {
@@ -174,4 +192,65 @@ extension SearchRecipesView: SearchRecipesViewInput {
         searchResults = recipes
         refreshTableView()
     }
+}
+
+// MARK: - health Filter Collection DataSource
+
+extension SearchRecipesView: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        HealthFilters.allCases.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let healthFilterCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: HealthFilterCell.identifier,
+            for: indexPath) as? HealthFilterCell else {
+            fatalError("Couldn't Find The Cell!!")
+        }
+        
+        let healthText = HealthFilters.allCases[indexPath.row]
+        
+        healthFilterCell.healthLbl.text = healthText.text
+        
+        return healthFilterCell
+    }
+}
+
+// MARK: - health Filter Collection Delegate
+
+extension SearchRecipesView: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let filter = HealthFilters.allCases[indexPath.row]
+        interactor?.filterResults(WithFilter: filter)
+        if let cell = collectionView.cellForItem(at: indexPath) as? HealthFilterCell {
+            cell.contentView.backgroundColor = UIColor(named: "headerColor")
+            cell.healthLbl.textColor = .white
+        }
+        searchBar.showLoadingIndicator()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? HealthFilterCell {
+            cell.healthLbl.textColor = UIColor(red: 0.371, green: 0.371, blue: 0.371, alpha: 1)
+            cell.contentView.backgroundColor = .white
+        }
+    }
+}
+
+// MARK: - health Filter FlowLayout
+
+extension SearchRecipesView: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath) -> CGSize {
+            let width = healthFilterCollection.frame.size.width / 3.5
+            
+            return CGSize(width: width, height: 40)
+        }
 }

@@ -25,6 +25,7 @@ final class SearchRecipesInteractor {
     private var hasMore: Bool = true
     private var isAPaginationRequest = false
     private var lastSearchkeyword: String = ""
+    private var lastSearchFilter: HealthFilters?
     lazy var searchResults: [Recipe] = [Recipe]()
     var serviceNetwork: SearchRecipesNetworkingProtocol?
     var presenter: SearchRecipesPresenterInput?
@@ -53,6 +54,31 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
             }
             lastSearchkeyword = searchKeyword
             isAPaginationRequest = false
+        }
+    }
+    
+    func filterResults(WithFilter filter: HealthFilters) {
+        
+        guard filter != lastSearchFilter else { return }
+        let filterRawValue = filter == .all ? nil : filter.rawValue
+        resetInteractorProperties()
+        
+        serviceNetwork?.searchRecipes(with: lastSearchkeyword,
+                                      healthLbl: filterRawValue,
+                                      from: from,
+                                      to: to)
+        { [unowned self] result  in
+            
+            switch result
+            {
+            case .success(let response):
+                setInteractorProperties(with: response)
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            isAPaginationRequest = false
+            lastSearchFilter = filter
         }
     }
     

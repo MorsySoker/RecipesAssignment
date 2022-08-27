@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchRecipesView" customModule="RecipesAssignment" customModuleProvider="target">
             <connections>
                 <outlet property="headerView" destination="Gm5-oI-cJq" id="eSW-HU-eJo"/>
+                <outlet property="healthFilterCollection" destination="1TB-Mm-wc8" id="GeH-tn-4oA"/>
                 <outlet property="recipesTableView" destination="uZt-wZ-LSm" id="Zb2-ay-2HQ"/>
                 <outlet property="searchBar" destination="qPG-Bv-m63" id="9vj-V5-A1q"/>
                 <outlet property="view" destination="iN0-l3-epB" id="dRn-et-1ei"/>
