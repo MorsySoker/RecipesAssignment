@@ -78,11 +78,22 @@ class RecipeCell: UITableViewCell {
     // Methods
     
     func configure(with recipe: RecipeCellViewModel) {
-        
         recipeImage.setImage(with: recipe.imageLink)
         recipeTitleLbl.text = recipe.title
         recipeSourceLbl.text = recipe.source
         recipeHealthLbl.text = recipe.healthLabels
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        removeCurrentCellInfo()
+    }
+    
+    private func removeCurrentCellInfo() {
+        recipeImage.image = nil
+        recipeTitleLbl.text = nil
+        recipeSourceLbl.text = nil
+        recipeHealthLbl.text = nil
     }
 }
 
