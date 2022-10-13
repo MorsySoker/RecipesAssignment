@@ -7,13 +7,18 @@
 
 import Lottie
 
+enum SplashViewLottieFilesKeys: String {
+    
+    case food
+}
+
 class SplashView: BaseViewController {
     
     // MARK: - Views
     
-    private lazy var lottieView: AnimationView = {
-        let view = AnimationView()
-        let animation = Animation.named("food")
+    private lazy var lottieView: LottieAnimationView = {
+        let view = LottieAnimationView()
+        let animation = LottieAnimation.named(SplashViewLottieFilesKeys.food.rawValue)
         view.animation = animation
         view.play()
         return view

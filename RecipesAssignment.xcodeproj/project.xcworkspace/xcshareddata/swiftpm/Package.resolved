@@ -15,7 +15,7 @@
       "location" : "https://github.com/onevcat/Kingfisher.git",
       "state" : {
         "branch" : "master",
-        "revision" : "13f842e18fbbde0093390b58591e99aa2c7800d3"
+        "revision" : "dffcc081c411bb34267297962666e2e21cd45b0d"
       }
     },
     {
@@ -24,7 +24,7 @@
       "location" : "https://github.com/airbnb/lottie-ios.git",
       "state" : {
         "branch" : "master",
-        "revision" : "890b188ca8fc5efae9833ede9a77971c97e49c4f"
+        "revision" : "55616e9d17ad2b005d9b58dab3eec215e91ca661"
       }
     },
     {
