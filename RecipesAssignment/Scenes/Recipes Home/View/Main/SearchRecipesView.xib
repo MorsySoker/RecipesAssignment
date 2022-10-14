@@ -65,7 +65,7 @@
                         <constraint firstAttribute="height" constant="40" id="qaY-61-Gq1"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                 </textField>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

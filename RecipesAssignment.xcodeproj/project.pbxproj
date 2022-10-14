@@ -40,6 +40,7 @@
 		1DBA3F8228B9C27F0087449C /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBA3F8128B9C27F0087449C /* Toast.swift */; };
 		1DBA3F8628B9CA170087449C /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBA3F8428B9CA170087449C /* RecipeDetailView.swift */; };
 		1DBA3F8728B9CA170087449C /* RecipeDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DBA3F8528B9CA170087449C /* RecipeDetailView.xib */; };
+		1DC77E0128F87BC5002DCA7F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC77E0028F87BC5002DCA7F /* ImageService.swift */; };
 		1DE8F5B428B654BA00C8FBBE /* ViewCodeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F5B028B654BA00C8FBBE /* ViewCodeConfiguration.swift */; };
 		1DE8F5B528B654BA00C8FBBE /* NibLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F5B228B654BA00C8FBBE /* NibLoadingView.swift */; };
 		1DE8F5B628B654BA00C8FBBE /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F5B328B654BA00C8FBBE /* BaseViewController.swift */; };
@@ -95,6 +96,7 @@
 		1DBA3F8128B9C27F0087449C /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		1DBA3F8428B9CA170087449C /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
 		1DBA3F8528B9CA170087449C /* RecipeDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeDetailView.xib; sourceTree = "<group>"; };
+		1DC77E0028F87BC5002DCA7F /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		1DE8F5B028B654BA00C8FBBE /* ViewCodeConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewCodeConfiguration.swift; sourceTree = "<group>"; };
 		1DE8F5B228B654BA00C8FBBE /* NibLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibLoadingView.swift; sourceTree = "<group>"; };
 		1DE8F5B328B654BA00C8FBBE /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 		1D7E68E628B8073E008A949E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1DC77DFF28F87B83002DCA7F /* Image Service */,
 				1D7E68EC28B83491008A949E /* Search Recipes  */,
 				1D7E68E728B80749008A949E /* Base */,
 			);
@@ -380,6 +383,14 @@
 				1D8D564728BA46B900A2257E /* View */,
 			);
 			path = "Recipe Details";
+			sourceTree = "<group>";
+		};
+		1DC77DFF28F87B83002DCA7F /* Image Service */ = {
+			isa = PBXGroup;
+			children = (
+				1DC77E0028F87BC5002DCA7F /* ImageService.swift */,
+			);
+			path = "Image Service";
 			sourceTree = "<group>";
 		};
 		1DE8F5AF28B654BA00C8FBBE /* Core */ = {
@@ -623,6 +634,7 @@
 				1D7E68EE28B834B6008A949E /* SearchRecipesAPI.swift in Sources */,
 				1DE8F5BC28B655DB00C8FBBE /* RecipeCell.swift in Sources */,
 				1D48EF4328B6509F00BD436A /* SearchRecipesView.swift in Sources */,
+				1DC77E0128F87BC5002DCA7F /* ImageService.swift in Sources */,
 				1DBA3F7E28B9B9710087449C /* SearchSuggestionWorker.swift in Sources */,
 				1D8D565628BA59E400A2257E /* RecipeDetailRouter.swift in Sources */,
 				1D48EF2D28B64FD600BD436A /* AppDelegate.swift in Sources */,
