@@ -51,13 +51,6 @@ One of the Best and easy ways to work with UIKit Programmatically used it to cre
 
 <img src="https://i2.paste.pics/c4a222456f6ff8169556172239941608.png" width="200"> <img src="https://i2.paste.pics/75bb61c87361724a2be6ab5e27b3134d.png" width="200"/>  <img src="https://i2.paste.pics/0857082c9a0ca1812f7873accb60348c.png" width="200"/> <img src="https://i2.paste.pics/0c5c2f3d2026c94d91b3a8eb5c9c1a69.png" width="200"> 
 
-![App SplashScreen](https://i2.paste.pics/c4a222456f6ff8169556172239941608.png)
-
-![App SplashScreen](https://i2.paste.pics/75bb61c87361724a2be6ab5e27b3134d.png)
-
-![App SplashScreen](https://i2.paste.pics/0857082c9a0ca1812f7873accb60348c.png)
-
-![App SplashScreen](https://i2.paste.pics/0c5c2f3d2026c94d91b3a8eb5c9c1a69.png)
 ## 🚀 About Me
  👋 Hi, I’m Morsy Mohamed Morsy
 
