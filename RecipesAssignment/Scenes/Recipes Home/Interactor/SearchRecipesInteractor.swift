@@ -140,6 +140,10 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         }
     }
     
+    func saveSearchSuggestions() {
+        searchSuggestionWorker?.saveSuggestions(suggestions)
+    }
+    
     // MARK: - Helper Methods
     
     private func setInteractorProperties(with response: BaseResponse<Hit>) {
@@ -177,7 +181,7 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         }
     }
     
-    private func getRecipesFrom(hits: [Hit])-> [Recipe] {
+    private func getRecipesFrom(hits: [Hit]) -> [Recipe] {
         return hits.compactMap{ $0.recipe }
     }
     

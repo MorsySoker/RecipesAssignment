@@ -44,7 +44,6 @@ final class ImageService: ImageServiceProtocol {
                 switch result {
                 case .success(let result):
                     if let image = result.image {
-                        print("Retrieved image \(self.taskIdentifier) From \(result.cacheType) ")
                         completion(.success(image))
                     }
                 case .failure(let error):
@@ -54,10 +53,7 @@ final class ImageService: ImageServiceProtocol {
             return nil
         }
         
-        let downloadTask = fisher.retrieveImage(with: url,
-                                                options: [.diskStoreWriteOptions(.atomic)],
-                                                progressBlock: nil,
-                                                downloadTaskUpdated: nil)
+        let downloadTask = fisher.retrieveImage(with: url)
         { [weak self] result in
             
             defer { self?.runningDownloadTasks.removeValue(forKey: self!.taskIdentifier) }

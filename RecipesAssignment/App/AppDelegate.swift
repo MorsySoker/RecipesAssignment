@@ -11,7 +11,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let vc = SplashView()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         setMainInterface()
@@ -19,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setMainInterface() {
-        
-        let vc = SplashView()
         
         let navigation = UINavigationController(
             rootViewController: vc)
@@ -30,6 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window!.rootViewController = navigation
         window!.makeKeyAndVisible()
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        vc.applicationDidEnterBackground(application)
     }
 }
 

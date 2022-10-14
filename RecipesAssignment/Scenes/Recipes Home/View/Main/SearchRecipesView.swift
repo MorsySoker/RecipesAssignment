@@ -21,6 +21,7 @@ protocol SearchRecipesViewOutput: AnyObject {
     func filterResults(WithFilter filter: HealthFilters)
     func fetchNextPageForSearchResults()
     func getSearchResult(_ IndexPath: Int) -> Recipe
+    func saveSearchSuggestions()
 }
 
 final class SearchRecipesView: BaseViewController {

@@ -6,6 +6,7 @@
 //
 
 import Lottie
+import UIKit
 
 enum SplashViewLottieFilesKeys: String {
     
@@ -23,6 +24,8 @@ class SplashView: BaseViewController {
         view.play()
         return view
     }()
+    
+    var viewAfterSplash: SearchRecipesView = SearchRecipeConfigurator.configured()
 
     // MARK: - View Life Cycle
     
@@ -31,7 +34,7 @@ class SplashView: BaseViewController {
         applyViewCode()
         lottieView.play { [weak self] _ in
             self?.navigationController?.pushViewController(
-                SearchRecipeConfigurator.configured(),
+                self!.viewAfterSplash,
                 animated: true)
         }
     }
@@ -50,6 +53,13 @@ extension SplashView: ViewCodeConfiguration {
             make.centerX.centerY.equalToSuperview()
             make.edges.equalToSuperview()
         }
+    }
+}
+
+extension SplashView {
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        // save searchSuggestions before app closed
+        viewAfterSplash.interactor?.saveSearchSuggestions()
     }
 }
 
