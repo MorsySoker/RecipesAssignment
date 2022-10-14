@@ -20,11 +20,7 @@ extension UIColor {
         static let deylayedForReplay = UIColor.rgb(red: 239, green: 190, blue: 56)
         static let TabTitleColor =  UIColor(red: 0.44, green: 0.44, blue: 0.44, alpha: 1.00)
         static let unactiveBtn = UIColor(red: 0.44, green: 0.44, blue: 0.44, alpha: 1.00)
-        static let teacherAppMainGreenColor = UIColor.rgb(red: 55, green: 182, blue: 115)
-        static let teacherAppMainLightGreenColor = UIColor.rgb(red: 211, green: 249, blue: 229)
-        static let teacherAppMainGrayColor = UIColor.rgb(red: 177, green: 177, blue: 177)
-        static let teacherAppMainViewBackgroundColor = UIColor.rgb(red: 249, green: 249, blue: 249)
-        static let teacherAppMainViewBorderColor = UIColor.rgb(red: 217, green: 217, blue: 217)
+        static let textColor = UIColor(red: 0.371, green: 0.371, blue: 0.371, alpha: 1)
     }
     
     static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1) -> UIColor {

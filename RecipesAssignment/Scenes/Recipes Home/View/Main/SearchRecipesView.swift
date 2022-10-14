@@ -206,7 +206,6 @@ extension SearchRecipesView: SearchRecipesViewInput {
     }
     
     func setSearchSuggestion(_ suggestions: [String]) {
-        
         searchBar.filterStrings(suggestions)
     }
     

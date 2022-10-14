@@ -29,7 +29,7 @@ final class ImageService: ImageServiceProtocol {
     
     private  var runningDownloadTasks = [UUID: DownloadTask]()
     private let taskIdentifier = UUID()
-    private let placeHolderImage = UIImage(named: "Image")!
+    private var placeHolderImage = UIImage(named: "Image")!
     
     
     func loadImage(with urlString: String, completion: @escaping (Result<UIImage, Error>) -> Void) -> UUID? {

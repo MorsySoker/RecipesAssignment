@@ -23,7 +23,7 @@ class RecipeCell: UITableViewCell {
     private lazy var recipeTitleLbl: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .left
-        lbl.textColor = UIColor(red: 0.371, green: 0.371, blue: 0.371, alpha: 1)
+        lbl.textColor = .AppMainColors.textColor
         lbl.font = UIFont(name: "Georgia", size: 16)
         lbl.numberOfLines = 0
         lbl.lineBreakMode = .byWordWrapping
@@ -33,7 +33,7 @@ class RecipeCell: UITableViewCell {
     private lazy var recipeSourceLbl: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .left
-        lbl.textColor = UIColor(red: 0.371, green: 0.371, blue: 0.371, alpha: 1)
+        lbl.textColor = .AppMainColors.textColor
         lbl.font = UIFont(name: "Georgia", size: 15)
         lbl.numberOfLines = 1
         return lbl
@@ -42,7 +42,7 @@ class RecipeCell: UITableViewCell {
     private lazy var recipeHealthLbl: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .left
-        lbl.textColor = UIColor(red: 0.371, green: 0.371, blue: 0.371, alpha: 1)
+        lbl.textColor = .AppMainColors.textColor
         lbl.font = UIFont(name: "Georgia", size: 10)
         lbl.numberOfLines = 2
         lbl.lineBreakMode = .byWordWrapping
@@ -110,7 +110,7 @@ class RecipeCell: UITableViewCell {
                 self?.recipeImage.image = image
                 
             case.failure(let error):
-                print(error.localizedDescription)
+               print(error.localizedDescription)
             }
         }
         taskIdentifier = taskIdentifer
