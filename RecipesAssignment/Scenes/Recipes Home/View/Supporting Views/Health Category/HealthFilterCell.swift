@@ -11,10 +11,10 @@ class HealthFilterCell: UICollectionViewCell {
     
     // MARK: - Views
     
-     lazy var healthLbl: UILabel = {
+    lazy var healthLbl: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .center
-        lbl.textColor = UIColor(red: 0.371, green: 0.371, blue: 0.371, alpha: 1)
+        lbl.textColor = .AppMainColors.textColor
         lbl.font = UIFont(name: "Georgia", size: 15)
         lbl.numberOfLines = 1
         return lbl

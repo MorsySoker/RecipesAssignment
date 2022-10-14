@@ -28,6 +28,7 @@
 		1D8E5B0C28B939E0004DB5A4 /* SearchRecipesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D8E5B0B28B939E0004DB5A4 /* SearchRecipesView.xib */; };
 		1D8E5B0F28B94194004DB5A4 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8E5B0E28B94194004DB5A4 /* SearchTextField.swift */; };
 		1D8E5B1128B94D07004DB5A4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8E5B1028B94D07004DB5A4 /* String+Extension.swift */; };
+		1D91ABFA28F9A86500644E50 /* SearchRecipesProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D91ABF928F9A86500644E50 /* SearchRecipesProtocols.swift */; };
 		1D9752E928B9A6BF0045F7D5 /* HealthFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9752E828B9A6BF0045F7D5 /* HealthFilterCell.swift */; };
 		1DA2951428B8F3820079AC94 /* AppAuthKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA2951328B8F3820079AC94 /* AppAuthKeys.swift */; };
 		1DA2951728B926AB0079AC94 /* SearchRecipeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA2951628B926AB0079AC94 /* SearchRecipeRouter.swift */; };
@@ -84,6 +85,7 @@
 		1D8E5B0B28B939E0004DB5A4 /* SearchRecipesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchRecipesView.xib; sourceTree = "<group>"; };
 		1D8E5B0E28B94194004DB5A4 /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		1D8E5B1028B94D07004DB5A4 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		1D91ABF928F9A86500644E50 /* SearchRecipesProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesProtocols.swift; sourceTree = "<group>"; };
 		1D9752E828B9A6BF0045F7D5 /* HealthFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFilterCell.swift; sourceTree = "<group>"; };
 		1DA2951328B8F3820079AC94 /* AppAuthKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthKeys.swift; sourceTree = "<group>"; };
 		1DA2951628B926AB0079AC94 /* SearchRecipeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipeRouter.swift; sourceTree = "<group>"; };
@@ -314,6 +316,14 @@
 			path = CustomUI;
 			sourceTree = "<group>";
 		};
+		1D91ABF828F9A84B00644E50 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1D91ABF928F9A86500644E50 /* SearchRecipesProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		1D9752E628B9A6040045F7D5 /* RecipeCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +424,7 @@
 		1DE8F5B728B6558900C8FBBE /* Recipes Home */ = {
 			isa = PBXGroup;
 			children = (
+				1D91ABF828F9A84B00644E50 /* Protocols */,
 				1DBA3F7C28B9B95A0087449C /* Worker */,
 				1DA2951828B928A00079AC94 /* Configurator */,
 				1DB4172328B7A27100C19711 /* Model */,
@@ -639,6 +650,7 @@
 				1D8D565628BA59E400A2257E /* RecipeDetailRouter.swift in Sources */,
 				1D48EF2D28B64FD600BD436A /* AppDelegate.swift in Sources */,
 				1D9752E928B9A6BF0045F7D5 /* HealthFilterCell.swift in Sources */,
+				1D91ABFA28F9A86500644E50 /* SearchRecipesProtocols.swift in Sources */,
 				1D7E68F428B83F7A008A949E /* BaseResponse.swift in Sources */,
 				1DBA3F7828B9AC850087449C /* HealthFilters.swift in Sources */,
 			);

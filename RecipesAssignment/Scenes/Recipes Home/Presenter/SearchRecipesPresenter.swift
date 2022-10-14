@@ -7,9 +7,6 @@
 
 import Foundation
 
-typealias SearchRecipesPresenterInput = SearchRecipesInteractorOutput
-typealias SearchRecipesPresenterOutput = SearchRecipesViewInput
-
 final class SearchRecipesPresenter {
     
     // MARK: - Properties

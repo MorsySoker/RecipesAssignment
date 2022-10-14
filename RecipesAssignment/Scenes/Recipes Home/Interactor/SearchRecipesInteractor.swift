@@ -7,17 +7,6 @@
 
 import Foundation
 
-typealias SearchRecipesInteractorInput = SearchRecipesViewOutput
-
-protocol SearchRecipesInteractorOutput {
-    
-    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchOrFilterResults results: [Recipe])
-    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchNextPageResults results: [Recipe])
-    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchSuggestions suggestions: [String])
-    func interactor(_ interactor: SearchRecipesInteractorInput, didFailWith error: Error)
-}
-
-
 final class SearchRecipesInteractor {
     
     // MARK: - Properties
@@ -127,8 +116,7 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         }
     }
     
-    private func getSearchSuggestions()
-    {
+    private func getSearchSuggestions() {
         searchSuggestionWorker?.fetchSuggestions { [unowned self] result in
             switch result {
             case .success(let suggestions):
@@ -193,7 +181,6 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
     }
     
      func getSearchResult(_ IndexPath: Int) -> Recipe {
-        
         searchResults[IndexPath]
     }
 }

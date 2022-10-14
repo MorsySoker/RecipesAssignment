@@ -7,23 +7,6 @@
 
 import UIKit
 
-protocol SearchRecipesViewInput: AnyObject {
-    
-    func displaySearchOrFilterResults(_ recipes: [RecipeCellViewModel])
-    func displayNextPageResults(_ recipes: [RecipeCellViewModel])
-    func setSearchSuggestion(_ suggestions: [String])
-    func displayError(WithMessage message: String)
-}
-
-protocol SearchRecipesViewOutput: AnyObject {
-    
-    func search(WithKeyowrd query: String)
-    func filterResults(WithFilter filter: HealthFilters)
-    func fetchNextPageForSearchResults()
-    func getSearchResult(_ IndexPath: Int) -> Recipe
-    func saveSearchSuggestions()
-}
-
 final class SearchRecipesView: BaseViewController {
     
     // MARK: - Outlets
@@ -142,7 +125,6 @@ extension SearchRecipesView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
         if indexPath.row == searchResults.count - 1 {
             interactor?.fetchNextPageForSearchResults()
             searchBar.showLoadingIndicator()
@@ -193,7 +175,6 @@ extension SearchRecipesView: UITextFieldDelegate {
 extension SearchRecipesView: SearchRecipesViewInput {
     
     func displaySearchOrFilterResults(_ recipes: [RecipeCellViewModel]) {
-        
         searchResults = recipes
         refreshTableView()
         let topRow = IndexPath(row: 0,section: 0)
@@ -256,7 +237,7 @@ extension SearchRecipesView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? HealthFilterCell {
-            cell.healthLbl.textColor = UIColor(red: 0.371, green: 0.371, blue: 0.371, alpha: 1)
+            cell.healthLbl.textColor = .AppMainColors.textColor
             cell.contentView.backgroundColor = .white
         }
     }
@@ -271,7 +252,6 @@ extension SearchRecipesView: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath) -> CGSize {
             let width = healthFilterCollection.frame.size.width / 3.5
-            
             return CGSize(width: width, height: 40)
         }
 }
