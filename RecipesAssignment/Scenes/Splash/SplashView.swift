@@ -28,9 +28,7 @@ class SplashView: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         applyViewCode()
-        
         lottieView.play { [weak self] _ in
             self?.navigationController?.pushViewController(
                 SearchRecipeConfigurator.configured(),

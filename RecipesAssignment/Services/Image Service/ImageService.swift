@@ -5,46 +5,69 @@
 //  Created by MorsyElsokary on 13/10/2022.
 //
 
-import Foundation
 import Kingfisher
 import UIKit
 
 protocol ImageServiceProtocol: AnyObject {
-    
-    func loadImage(with urlString: String, compeletion: @escaping (Result<UIImage, Error>) -> Void) -> UUID?
+    func loadImage(with urlString: String, completion: @escaping (Result<UIImage, Error>) -> Void) -> UUID?
     func cancelTask(_ taskIdentifier: UUID)
 }
 
 final class ImageService: ImageServiceProtocol {
     
-    var loadedImages = [URL: UIImage]()
-    var runningDownloadTasks = [UUID: DownloadTask]()
-    let taskIdentifier = UUID()
-    let fisher = KingfisherManager.shared
+    static let shared = ImageService()
+    private let fisher = KingfisherManager.shared
+    private var cache: ImageCache {
+        let cache = ImageCache.default
+        // Limit memory cache size to 75 MB.
+        cache.memoryStorage.config.totalCostLimit = 75 * 1024 * 1024
+        
+        // Limit memory cache to hold 150 images at most.
+        cache.memoryStorage.config.countLimit = 150
+        return cache
+    }
     
-    func loadImage(with urlString: String, compeletion: @escaping (Result<UIImage, Error>) -> Void) -> UUID? {
+    private  var runningDownloadTasks = [UUID: DownloadTask]()
+    private let taskIdentifier = UUID()
+    private let placeHolderImage = UIImage(named: "Image")!
+    
+    
+    func loadImage(with urlString: String, completion: @escaping (Result<UIImage, Error>) -> Void) -> UUID? {
         
         guard let url = URL(string: urlString) else { return nil }
         
-        if let image = loadedImages[url] {
-            compeletion(.success(image))
+        completion(.success(placeHolderImage))
+        
+        if cache.isCached(forKey: urlString) {
+            cache.retrieveImage(forKey: urlString, options: nil)
+            { result in
+                switch result {
+                case .success(let result):
+                    if let image = result.image {
+                        print("Retrieved image \(self.taskIdentifier) From \(result.cacheType) ")
+                        completion(.success(image))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
             return nil
         }
         
         let downloadTask = fisher.retrieveImage(with: url,
-                                        options: nil,
-                                        progressBlock: nil,
-                                        downloadTaskUpdated: nil)
+                                                options: [.diskStoreWriteOptions(.atomic)],
+                                                progressBlock: nil,
+                                                downloadTaskUpdated: nil)
         { [weak self] result in
             
-            defer {self?.runningDownloadTasks.removeValue(forKey: self!.taskIdentifier)}
+            defer { self?.runningDownloadTasks.removeValue(forKey: self!.taskIdentifier) }
             
             switch result {
             case .success(let result):
-                self?.onSuccess(image: result.image, url: result.originalSource.url!)
-                compeletion(.success(result.image))
+                completion(.success(result.image))
             case .failure(let error):
-                self?.onFail(error: error)
+                completion(.failure(error))
+                
             }
         }
         
@@ -52,20 +75,12 @@ final class ImageService: ImageServiceProtocol {
         return taskIdentifier
     }
     
-    
-    private func onSuccess(image: UIImage, url: URL) {
-        loadedImages[url] = image
-    }
-    
-    private func onFail(error: KingfisherError) {
-        if error.isTaskCancelled {
-            print("Task is Cancled")
-        }
-    }
-    
     func cancelTask(_ taskIdentifier: UUID) {
         runningDownloadTasks[taskIdentifier]?.cancel()
         runningDownloadTasks.removeValue(forKey: taskIdentifier)
-        print("Task is Cancled")
+    }
+    
+    func clearMemoryCache() {
+        cache.clearMemoryCache()
     }
 }

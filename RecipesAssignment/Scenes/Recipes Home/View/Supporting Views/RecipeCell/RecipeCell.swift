@@ -62,6 +62,9 @@ class RecipeCell: UITableViewCell {
         return stack
     }()
     
+    private let imagerLoader: ImageServiceProtocol = ImageService()
+    private var taskIdentifier: UUID?
+    
     // MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -78,7 +81,8 @@ class RecipeCell: UITableViewCell {
     // Methods
     
     func configure(with recipe: RecipeCellViewModel) {
-        recipeImage.setImage(with: recipe.imageLink)
+        //recipeImage.setImage(with: recipe.imageLink)
+        setImage(urlString: recipe.imageLink)
         recipeTitleLbl.text = recipe.title
         recipeSourceLbl.text = recipe.source
         recipeHealthLbl.text = recipe.healthLabels
@@ -87,6 +91,9 @@ class RecipeCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         removeCurrentCellInfo()
+        if let taskIdentifier = taskIdentifier {
+            imagerLoader.cancelTask(taskIdentifier)
+        }
     }
     
     private func removeCurrentCellInfo() {
@@ -94,6 +101,19 @@ class RecipeCell: UITableViewCell {
         recipeTitleLbl.text = nil
         recipeSourceLbl.text = nil
         recipeHealthLbl.text = nil
+    }
+    
+    private func setImage(urlString: String) {
+        let taskIdentifer = imagerLoader.loadImage(with: urlString) { [weak self] result in
+            switch result {
+            case .success(let image):
+                self?.recipeImage.image = image
+                
+            case.failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        taskIdentifier = taskIdentifer
     }
 }
 

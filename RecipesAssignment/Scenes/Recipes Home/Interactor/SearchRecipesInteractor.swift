@@ -48,7 +48,8 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         
         let searchKeyword = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard searchKeyword != lastSearchkeyword else { return }
-        
+        // Clear The cashed images when the search keyword changes
+        ImageService.shared.clearMemoryCache()
         if !suggestions.contains(searchKeyword),
            let suggestionWorker = searchSuggestionWorker {
             suggestions = suggestionWorker.addNewSuggestion(searchKeyword)
