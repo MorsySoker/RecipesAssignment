@@ -30,8 +30,8 @@ final class SearchRecipesInteractor_Tests: XCTestCase {
         
         // Given
         let searchKeyword = UUID().uuidString
-        let sut = SearchRecipesInteractor(lastSearchkeyword: searchKeyword)
-        let presenterSpy = SearchRecipesInteractorOutputSpy()
+        let sut = SearchRecipesInteractor(searchkeyword: searchKeyword, searchFilter: .all)
+        let presenterSpy = SearchRecipesPresenterLogicSpy()
         sut.presenter = presenterSpy
         
         // When
@@ -47,8 +47,8 @@ final class SearchRecipesInteractor_Tests: XCTestCase {
         // Given
         let lastSearchKeyword = UUID().uuidString
         let searchKeyword = UUID().uuidString
-        let sut = SearchRecipesInteractor(lastSearchkeyword: lastSearchKeyword)
-        let presenterSpy = SearchRecipesInteractorOutputSpy()
+        let sut = SearchRecipesInteractor(searchkeyword: lastSearchKeyword, searchFilter: .all)
+        let presenterSpy = SearchRecipesPresenterLogicSpy()
         sut.presenter = presenterSpy
         
         // When
@@ -56,5 +56,64 @@ final class SearchRecipesInteractor_Tests: XCTestCase {
         
         // Then
         XCTAssertFalse(presenterSpy.didFailWith)
+    }
+    
+    func test_SearchRecipesInteractor_setInteractorProperties_PresenterShouldReciveAFailWhenTheResposeIsNil() {
+        
+        // Given
+        let lastSearchKeyword = UUID().uuidString
+        let searchKeyword = UUID().uuidString
+        let sut = SearchRecipesInteractor(searchkeyword: lastSearchKeyword, searchFilter: .all)
+        let presenterSpy = SearchRecipesPresenterLogicSpy()
+        let mockedService = MockSearchRecipesAPI(recipes: MockResponse.nilResponse, isLoading: false)
+        sut.presenter = presenterSpy
+        sut.serviceNetwork = mockedService
+        let expectation = self.expectation(description: "Presenter Should Fail with invalid Search Keyowrd")
+        // When
+        sut.search(WithKeyowrd: searchKeyword)
+        expectation.fulfill()
+        // Then
+        waitForExpectations(timeout: 5)
+        XCTAssert(presenterSpy.didFailWith)
+        XCTAssertEqual(presenterSpy.failedWithError as? SearchError, SearchError.invalidSearchKeyowrd)
+    }
+    
+    func test_SearchRecipesInteractor_setInteractorProperties_PresenterShouldReciveAFailWhenTheHitsArrayIsEmpty() {
+        
+        // Given
+        let lastSearchKeyword = UUID().uuidString
+        let searchKeyword = UUID().uuidString
+        let sut = SearchRecipesInteractor(searchkeyword: lastSearchKeyword, searchFilter: .all)
+        let presenterSpy = SearchRecipesPresenterLogicSpy()
+        let mockedService = MockSearchRecipesAPI(recipes: MockResponse.emptyHitResponse, isLoading: false)
+        sut.presenter = presenterSpy
+        sut.serviceNetwork = mockedService
+        let expectation = self.expectation(description: "Presenter Should Fail When Hits Array is Empty")
+        // When
+        sut.search(WithKeyowrd: searchKeyword)
+        expectation.fulfill()
+        // Then
+        waitForExpectations(timeout: 5)
+        XCTAssert(presenterSpy.didFailWith)
+        XCTAssertEqual(presenterSpy.failedWithError as? SearchError, SearchError.emptySearch)
+    }
+    
+    func test_SearchRecipesInteractor_setInteractorProperties_PresenterShouldReciveTheResonseWhenTheRecipesIsFetchedThrowSearch() {
+        
+        // Given
+        let lastSearchKeyword = UUID().uuidString
+        let searchKeyword = UUID().uuidString
+        let sut = SearchRecipesInteractor(searchkeyword: lastSearchKeyword, searchFilter: .all)
+        let presenterSpy = SearchRecipesPresenterLogicSpy()
+        let mockedService = MockSearchRecipesAPI(recipes: MockResponse.response, isLoading: false)
+        sut.presenter = presenterSpy
+        sut.serviceNetwork = mockedService
+        let expectation = self.expectation(description: "Presenter Should Recive Recipes when search with Keyword Finish successfully")
+        // When
+        sut.search(WithKeyowrd: searchKeyword)
+        expectation.fulfill()
+        // Then
+        waitForExpectations(timeout: 5)
+        XCTAssert(presenterSpy.didFetchSearchOrFilterResults)
     }
 }

@@ -16,7 +16,7 @@ protocol SearchRecipesNetworkingProtocol: AnyObject {
                        healthLbl: String?,
                        from: Int,
                        to: Int,
-                       completion: @escaping (Result<BaseResponse<Hit>, AFError>) -> Void)
+                       completion: @escaping (Result<BaseResponse<Hit>, Error>) -> Void)
 }
 
 class SearchRecipesNetworking: SearchRecipesNetworkingProtocol {
@@ -32,7 +32,7 @@ class SearchRecipesNetworking: SearchRecipesNetworkingProtocol {
                        healthLbl: String?,
                        from: Int,
                        to: Int,
-                       completion: @escaping (Result<BaseResponse<Hit>, AFError>) -> Void) {
+                       completion: @escaping (Result<BaseResponse<Hit>, Error>) -> Void) {
         
         isLoading = true
         networkService.request(SearchRecipesAPI.searchRecipes(query, healthLbl, from, to),
@@ -41,7 +41,7 @@ class SearchRecipesNetworking: SearchRecipesNetworkingProtocol {
             case .success(let response):
                 completion(.success(response))
             case .failure(let error):
-                completion(.failure(error))
+                completion(.failure(error.asAFError!))
             }
             self.isLoading = false
         }

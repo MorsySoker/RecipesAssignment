@@ -8,7 +8,7 @@
 import Foundation
 @testable import RecipesAssignment
 
-class SearchRecipesInteractorOutputSpy: SearchRecipesInteractorOutput {
+class SearchRecipesPresenterLogicSpy: SearchRecipesInteractorOutput {
     
     var didFetchSearchOrFilterResults: Bool = false
     var didFetchNextPageResults: Bool = false
