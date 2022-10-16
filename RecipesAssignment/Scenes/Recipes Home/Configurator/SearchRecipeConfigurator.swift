@@ -20,7 +20,7 @@ final class SearchRecipeConfigurator: SearchRecipeConfiguratorProtocol {
         let service =  SearchRecipesNetworking(
             networkService: NetworkService())
         let suggestionWorker = SearchSuggestionWorker()
-        let interactor = SearchRecipesInteractor()
+        let interactor = SearchRecipesInteractor(lastSearchkeyword: "")
         let presenter = SearchRecipesPresenter()
         let router = SearchRecipeRouter()
         router.view = vc

@@ -16,7 +16,7 @@ final class SearchRecipesInteractor {
     private var totalItems: Int = 0
     private var hasMore: Bool = true
     private var isAPaginationRequest = false
-    private var lastSearchkeyword: String = ""
+    private var lastSearchkeyword: String
     private var lastSearchFilter: HealthFilters?
     private lazy var suggestions: [String] = [String]()
     private lazy var searchResults: [Recipe] = [Recipe]()
@@ -26,7 +26,10 @@ final class SearchRecipesInteractor {
     
     // MARK: - init
     
-    init() { getSearchSuggestions() }
+    init(lastSearchkeyword: String) {
+        self.lastSearchkeyword = lastSearchkeyword
+        getSearchSuggestions()
+    }
 }
 
 // MARK: - Interactor Input Confirmation
@@ -36,7 +39,10 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
     func search(WithKeyowrd query: String) {
         
         let searchKeyword = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard searchKeyword != lastSearchkeyword else { return }
+        guard searchKeyword != lastSearchkeyword else {
+            presenter?.interactor(self, didFailWith: SearchError.invalidSearchKeyowrd)
+            return
+        }
         // Clear The cashed images when the search keyword changes
         ImageService.shared.clearMemoryCache()
         if !suggestions.contains(searchKeyword),
@@ -47,7 +53,22 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         
         resetPaginationProperties()
         
-        serviceNetwork?.searchRecipes(with: searchKeyword,
+        fetchRecipes(withKeyword: searchKeyword,
+                     withFilter: nil,
+                     from: from,
+                     to: to) { [weak self] in
+            self?.lastSearchkeyword = searchKeyword
+            self?.isAPaginationRequest = false
+        }
+    }
+    
+    private func fetchRecipes(withKeyword query: String,
+                            withFilter filter: HealthFilters?,
+                            from: Int,
+                            to: Int,
+                            onFinish: @escaping (() -> Void)) {
+        
+        serviceNetwork?.searchRecipes(with: query,
                                       healthLbl: nil,
                                       from: from,
                                       to: to)
@@ -58,8 +79,7 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
             case .failure(let error):
                 presenter?.interactor(self, didFailWith: error)
             }
-            lastSearchkeyword = searchKeyword
-            isAPaginationRequest = false
+            onFinish()
         }
     }
     
@@ -121,7 +141,7 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
             switch result {
             case .success(let suggestions):
                 self.suggestions = suggestions
-                
+                presenter?.interactor(self, didFetchSearchSuggestions: suggestions)
             case .failure(let error):
                 presenter?.interactor(self, didFailWith: error)
             }
