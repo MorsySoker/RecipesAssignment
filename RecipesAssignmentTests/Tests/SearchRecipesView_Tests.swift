@@ -19,7 +19,7 @@ final class SearchRecipesView_Tests: XCTestCase {
     
     override func setUp() {
         sut = SearchRecipesView()
-        _ = sut.view
+        sut.loadViewIfNeeded()
         super.setUp()
     }
     
