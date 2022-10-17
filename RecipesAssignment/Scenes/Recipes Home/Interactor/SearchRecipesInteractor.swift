@@ -63,7 +63,6 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         }
     }
     
-    
     func filterResults(WithFilter filter: HealthFilters) {
         
         guard filter != lastSearchFilter else { return }
@@ -80,11 +79,15 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
     }
     
     func fetchNextPageForSearchResults() {
-        
+        print("Start Fetching Next Page")
         guard hasMore,
               let service = serviceNetwork,
               !service.isLoading,
               from + to < totalItems else {
+            if let serviceNetwork, !serviceNetwork.isLoading {
+                
+                print("Service: \(!serviceNetwork.isLoading) , From To \(from + to < totalItems) \(from + to) , \(totalItems)")
+            }
             return
         }
         
@@ -118,8 +121,8 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
     }
     
     func getSearchResult(_ IndexPath: Int) -> Recipe {
-       searchResults[IndexPath]
-   }
+        searchResults[IndexPath]
+    }
     
     // MARK: - Helper Methods
     
@@ -157,7 +160,6 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         }
         
         guard !hits.isEmpty else {
-            
             if isAPaginationRequest { return }
             presenter.interactor(self, didFailWith: SearchError.emptySearch)
             return

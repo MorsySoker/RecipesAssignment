@@ -7,7 +7,7 @@
 		<key>RecipesAssignment.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>SnapKitPlayground (Playground) 1.xcscheme</key>
 		<dict>
@@ -29,6 +29,19 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>1D48EF2828B64FD600BD436A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1D99C22E28FA045C00B3933F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
