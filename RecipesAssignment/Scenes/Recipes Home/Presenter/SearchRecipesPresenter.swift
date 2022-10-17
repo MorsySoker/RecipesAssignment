@@ -19,7 +19,7 @@ final class SearchRecipesPresenter {
         
         let resultsViewModels = recipes.compactMap { (recipe) -> RecipeCellViewModel? in
             let healthLabels = recipe.healthLabels?.joined(separator: ", ")
-            let viewModel = RecipeCellViewModel(imageLink: recipe.image!, title: recipe.label ?? "", source: recipe.source ?? "", healthLabels: healthLabels ?? "")
+            let viewModel = RecipeCellViewModel(imageLink: recipe.image ?? "", title: recipe.label ?? "", source: recipe.source ?? "", healthLabels: healthLabels ?? "")
             
             return viewModel
         }

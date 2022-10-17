@@ -56,4 +56,14 @@ struct MockResponse {
                                                                     ingredientLines: nil))])
     
     static let emptyHitResponse = BaseResponse<Hit>(quary: "", from: 0, to: 10, more: true, totalItems: 7000, data: [])
+    
+    static let recipes = [Recipe(uri: nil,
+                                 label: nil,
+                                 image: nil,
+                                 source: nil,
+                                 url: nil,
+                                 shareAs: nil,
+                                 yield: nil,
+                                 healthLabels: nil,
+                                 ingredientLines: nil)]
 }
