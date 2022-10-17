@@ -8,7 +8,7 @@
 import Foundation
 @testable import RecipesAssignment
 
-class SearchRecipesViewLogicSpy: SearchRecipesViewInput {
+final class SearchRecipesViewLogicSpy: SearchRecipesViewInput {
     
     var displaySearchOrFilterResults: Bool = false
     var displayNextPageResults: Bool = false

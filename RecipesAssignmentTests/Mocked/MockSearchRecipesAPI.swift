@@ -13,7 +13,7 @@ enum MockNetworkErrors {
     case responseIsNill
 }
 
-class MockSearchRecipesAPI: SearchRecipesNetworkingProtocol {
+final class MockSearchRecipesAPI: SearchRecipesNetworkingProtocol {
         
     var response: BaseResponse<Hit>?
     var isLoading: Bool

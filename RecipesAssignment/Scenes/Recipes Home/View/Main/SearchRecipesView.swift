@@ -11,10 +11,10 @@ final class SearchRecipesView: BaseViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet private weak var recipesTableView: UITableView!
+    @IBOutlet weak var recipesTableView: UITableView!
     @IBOutlet private weak var headerView: UIView!
     @IBOutlet private weak var searchBar: SearchTextField!
-    @IBOutlet private weak var healthFilterCollection: UICollectionView!
+    @IBOutlet weak var healthFilterCollection: UICollectionView!
     
     // MARK: - Properties
     
@@ -159,7 +159,7 @@ extension SearchRecipesView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let searchKeyword = textField.text, searchKeyword.isNotEmptyOrSpaces()
         else {
-            displayError(WithMessage: "Please Enter Valid Sarch Keyword")
+            displayError(WithMessage: "Please Enter a valid Search Keyword")
             textField.resignFirstResponder()
             return true
         }

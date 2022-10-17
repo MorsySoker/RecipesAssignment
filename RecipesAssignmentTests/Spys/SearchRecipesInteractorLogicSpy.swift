@@ -8,7 +8,7 @@
 import Foundation
 @testable import RecipesAssignment
 
-class SearchRecipesInteractorLogicSpy: SearchRecipesInteractorInput {
+final class SearchRecipesInteractorLogicSpy: SearchRecipesInteractorInput {
     
     var isSearchWithKeyowrdCalled: Bool = false
     var isFilterResultsWithFilterCalled: Bool = false
