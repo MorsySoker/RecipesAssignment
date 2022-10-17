@@ -1,5 +1,8 @@
 # Recipe Assiment
 An app that helps users search a Recipe.
+
+### Unit Tests included For SearchRecipes (View\Presenter\Interactor)
+
 ## Deployment
 
 To run this project please make sure to update swift packages
@@ -7,7 +10,7 @@ To run this project please make sure to update swift packages
 ```bash
   File -> Swift Packages -> Update to Latest Package Versions
 ```
-
+Then run the tests
 
 ## Technology stack
 
@@ -38,7 +41,7 @@ SnapKit :
 One of the Best and easy ways to work with UIKit Programmatically used it to create the cells
 ## Roadmap to improve the app
 
-- UnitTests: Have a good coverage of of test 
+- UnitTests: Have a more indepth UnitTests for SearchRecipes Modules + Writing Tests For RecipeDetails Modules
 
 - Having a cell presenter/viewModel to handel the responspility of downloading the image and handling the data of the viewModel
 
