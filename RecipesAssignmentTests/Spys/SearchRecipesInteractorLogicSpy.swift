@@ -9,7 +9,7 @@ import Foundation
 @testable import RecipesAssignment
 
 final class SearchRecipesInteractorLogicSpy: SearchRecipesInteractorInput {
-    
+
     var isSearchWithKeyowrdCalled: Bool = false
     var isFilterResultsWithFilterCalled: Bool = false
     var isFetchNextPageForSearchResultsCalled: Bool = false

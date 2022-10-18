@@ -16,11 +16,11 @@ final class SearchRecipesPresenterLogicSpy: SearchRecipesInteractorOutput {
     var didFailWith: Bool = false
     var failedWithError: Error?
     
-    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchOrFilterResults results: [RecipesAssignment.Recipe]) {
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchOrFilterResults results: BaseResponse<Hit>) {
         didFetchSearchOrFilterResults = true
     }
     
-    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchNextPageResults results: [RecipesAssignment.Recipe]) {
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchNextPageResults results: BaseResponse<Hit>) {
         didFetchNextPageResults = true
     }
     

@@ -19,14 +19,15 @@ final class SearchRecipesInteractor {
     private var lastSearchkeyword: String
     private var lastSearchFilter: HealthFilters?
     private lazy var suggestions: [String] = [String]()
-    private lazy var searchResults: [Recipe] = [Recipe]()
+    var searchResult: BaseResponse<Hit>?
     var serviceNetwork: SearchRecipesNetworkingProtocol?
     var searchSuggestionWorker: SearchSuggestionWorkerProtocol?
     var presenter: SearchRecipesPresenterInput?
     
     // MARK: - init
     
-    init(searchkeyword: String, searchFilter: HealthFilters) {
+    init(searchResult: BaseResponse<Hit>? = nil, searchkeyword: String = "" , searchFilter: HealthFilters = .all) {
+        self.searchResult = searchResult
         self.lastSearchkeyword = searchkeyword
         self.lastSearchFilter = searchFilter
         getSearchSuggestions()
@@ -79,17 +80,10 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
     }
     
     func fetchNextPageForSearchResults() {
-        print("Start Fetching Next Page")
         guard hasMore,
               let service = serviceNetwork,
               !service.isLoading,
-              from + to < totalItems else {
-            if let serviceNetwork, !serviceNetwork.isLoading {
-                
-                print("Service: \(!serviceNetwork.isLoading) , From To \(from + to < totalItems) \(from + to) , \(totalItems)")
-            }
-            return
-        }
+              from + to < totalItems else { return }
         
         from = to
         to = (from + 10) > totalItems ? (totalItems - from ) : ( from + 10 )
@@ -120,8 +114,8 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         searchSuggestionWorker?.saveSuggestions(suggestions)
     }
     
-    func getSearchResult(_ IndexPath: Int) -> Recipe {
-        searchResults[IndexPath]
+    func getSearchResult(_ indexPath: Int) -> Recipe {
+        getRecipesFrom(response: searchResult!)![indexPath]
     }
     
     // MARK: - Helper Methods
@@ -170,19 +164,33 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
         self.from = from
         self.totalItems = totalItems
         
-        let recipes = getRecipesFrom(hits: hits)
-        
         if isAPaginationRequest {
-            searchResults.append(contentsOf: recipes)
-            presenter.interactor(self, didFetchNextPageResults: searchResults)
+            searchResult = appendNewHits(response: response)
+            presenter.interactor(self, didFetchNextPageResults: searchResult!)
         } else {
-            searchResults = recipes
-            presenter.interactor(self, didFetchSearchOrFilterResults: searchResults)
+            searchResult = response
+            presenter.interactor(self, didFetchSearchOrFilterResults: response)
         }
     }
     
-    private func getRecipesFrom(hits: [Hit]) -> [Recipe] {
-        return hits.compactMap{ $0.recipe }
+    private func appendNewHits(response: BaseResponse<Hit>) -> BaseResponse<Hit> {
+        if let newHits = response.data, searchResult != nil, var oldHits = searchResult!.data {
+            oldHits.append(contentsOf: newHits)
+            return BaseResponse<Hit>(quary: response.quary,
+                                     from: response.from,
+                                     to: response.to,
+                                     more: response.more,
+                                     totalItems: response.totalItems,
+                                     data: oldHits)
+        }
+        return response
+    }
+    
+    private func getRecipesFrom(response: BaseResponse<Hit>) -> [Recipe]? {
+        if let hits = response.data {
+           return hits.map { $0.recipe }
+        }
+        return nil
     }
     
     private func resetPaginationProperties() {

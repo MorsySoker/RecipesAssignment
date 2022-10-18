@@ -12,7 +12,7 @@ struct MockResponse {
     
     static let response = BaseResponse(quary: "Pizza",
                                        from: 0,
-                                       to: 10,
+                                       to: 1,
                                        more: true,
                                        totalItems: 7000,
                                        data: [Hit(recipe: Recipe(uri: nil,
@@ -26,8 +26,8 @@ struct MockResponse {
                                                                  ingredientLines: nil))])
     
     static let nextPageResponse = BaseResponse(quary: "Pizza",
-                                               from: 10,
-                                               to: 20,
+                                               from: 1,
+                                               to: 2,
                                                more: true,
                                                totalItems: 7000,
                                                data: [Hit(recipe: Recipe(uri: nil,
@@ -38,7 +38,16 @@ struct MockResponse {
                                                                          shareAs: nil,
                                                                          yield: nil,
                                                                          healthLabels: nil,
-                                                                         ingredientLines: nil))])
+                                                                         ingredientLines: nil)),
+                                                      Hit(recipe: Recipe(uri: nil,
+                                                                                label: nil,
+                                                                                image: nil,
+                                                                                source: nil,
+                                                                                url: nil,
+                                                                                shareAs: nil,
+                                                                                yield: nil,
+                                                                                healthLabels: nil,
+                                                                                ingredientLines: nil))])
     
     static let nilResponse = BaseResponse(quary: "Pizza",
                                           from: nil,

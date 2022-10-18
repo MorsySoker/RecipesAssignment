@@ -29,8 +29,8 @@ protocol SearchRecipesViewOutput: AnyObject {
 typealias SearchRecipesInteractorInput = SearchRecipesViewOutput
 
 protocol SearchRecipesInteractorOutput {
-    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchOrFilterResults results: [Recipe])
-    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchNextPageResults results: [Recipe])
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchOrFilterResults results: BaseResponse<Hit>)
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchNextPageResults results: BaseResponse<Hit>)
     func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchSuggestions suggestions: [String])
     func interactor(_ interactor: SearchRecipesInteractorInput, didFailWith error: Error)
 }

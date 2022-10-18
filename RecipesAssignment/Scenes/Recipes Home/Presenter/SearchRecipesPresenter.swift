@@ -15,29 +15,30 @@ final class SearchRecipesPresenter {
     
     // MARK: -  Helper Methods
     
-    private func convertRecipesToRecipeCellViewModels(recipes: [Recipe])-> [RecipeCellViewModel] {
-        
-        let resultsViewModels = recipes.compactMap { (recipe) -> RecipeCellViewModel? in
+    private func convertRecipesToRecipeCellViewModels(result: BaseResponse<Hit>) -> [RecipeCellViewModel] {
+
+        let recipes = result.data?.map { $0.recipe }
+        let resultsViewModels = recipes?.compactMap { (recipe) -> RecipeCellViewModel? in
             let healthLabels = recipe.healthLabels?.joined(separator: ", ")
             let viewModel = RecipeCellViewModel(imageLink: recipe.image ?? "", title: recipe.label ?? "", source: recipe.source ?? "", healthLabels: healthLabels ?? "")
             
             return viewModel
         }
-        return resultsViewModels
+        return resultsViewModels!
     }
 }
 
 extension SearchRecipesPresenter: SearchRecipesPresenterInput {
     
-    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchOrFilterResults results: [Recipe]) {
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchSearchOrFilterResults results: BaseResponse<Hit>) {
         
-        let recipesViewModels = convertRecipesToRecipeCellViewModels(recipes: results)
+        let recipesViewModels = convertRecipesToRecipeCellViewModels(result: results)
         searchRecipesView?.displaySearchOrFilterResults(recipesViewModels)
     }
     
-    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchNextPageResults results: [Recipe]) {
+    func interactor(_ interactor: SearchRecipesInteractorInput, didFetchNextPageResults results: BaseResponse<Hit>) {
         
-        let recipesViewModels = convertRecipesToRecipeCellViewModels(recipes: results)
+        let recipesViewModels = convertRecipesToRecipeCellViewModels(result: results)
         searchRecipesView?.displayNextPageResults(recipesViewModels)
     }
     

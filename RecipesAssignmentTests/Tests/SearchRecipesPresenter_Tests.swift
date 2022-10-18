@@ -35,7 +35,7 @@ final class SearchRecipesPresenter_Tests: XCTestCase {
     
     func test_SearchRecipesPresenter_didFetchSearchOrFilterResults_ViewShouldDisplaySearchOrFilterResults() {
         //When
-        sut.interactor(interactorSpy, didFetchSearchOrFilterResults: MockResponse.recipes)
+        sut.interactor(interactorSpy, didFetchSearchOrFilterResults: MockResponse.response)
         
         //Then
         XCTAssert(viewSpy.displaySearchOrFilterResults)
@@ -43,7 +43,7 @@ final class SearchRecipesPresenter_Tests: XCTestCase {
     
     func test_SearchRecipesPresenter_didFetchNextPageResults_ViewShouldDisplayNextPageResults() {
         //When
-        sut.interactor(interactorSpy, didFetchNextPageResults: MockResponse.recipes)
+        sut.interactor(interactorSpy, didFetchNextPageResults: MockResponse.response)
         
         //Then
         XCTAssert(viewSpy.displayNextPageResults)

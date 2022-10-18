@@ -41,11 +41,11 @@ class NetworkService: NetworkServiceProtocol, ObservableObject {
                 if result.response?.statusCode == 400 {
                     print("❌ Bad Request")
                 }
-                print(result.request as Any)  // original URL request
-                print(result.response as Any) // URL response
-                print(String(data: result.data ?? Data() , encoding: .utf8) as Any)// server data
-                print(result.result)   // result of response serialization
-                print("🎯 \(String(describing: result.value))")
+//                print(result.request as Any)  // original URL request
+//                print(result.response as Any) // URL response
+//                print(String(data: result.data ?? Data() , encoding: .utf8) as Any)// server data
+//                print(result.result)   // result of response serialization
+//                print("🎯 \(String(describing: result.value))")
                 #endif
                 if let value = result.value { completion(Result.success(value)) }
                 else if let error = result.error { completion(Result.failure(error)) }

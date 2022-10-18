@@ -14,7 +14,7 @@ struct BaseResponse<Data: Codable>: Codable {
     let to: Int?
     let more: Bool?
     let totalItems: Int?
-    let data: [Data]?
+    var data: [Data]?
     
     enum CodingKeys: String, CodingKey {
         
