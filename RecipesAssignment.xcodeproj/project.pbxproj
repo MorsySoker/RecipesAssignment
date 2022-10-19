@@ -40,6 +40,7 @@
 		1DA2951428B8F3820079AC94 /* AppAuthKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA2951328B8F3820079AC94 /* AppAuthKeys.swift */; };
 		1DA2951728B926AB0079AC94 /* SearchRecipeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA2951628B926AB0079AC94 /* SearchRecipeRouter.swift */; };
 		1DA2951A28B929270079AC94 /* SearchRecipeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA2951928B929270079AC94 /* SearchRecipeConfigurator.swift */; };
+		1DB163DE28FF02A500EEAA2F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB163DD28FF02A500EEAA2F /* NetworkError.swift */; };
 		1DB1FA9228FBA55700B707D4 /* MockSearchRecipesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB1FA9128FBA55700B707D4 /* MockSearchRecipesAPI.swift */; };
 		1DB4172528B7A2A800C19711 /* RecipeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB4172428B7A2A800C19711 /* RecipeCellViewModel.swift */; };
 		1DBA3F7828B9AC850087449C /* HealthFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBA3F7728B9AC850087449C /* HealthFilters.swift */; };
@@ -116,6 +117,7 @@
 		1DA2951328B8F3820079AC94 /* AppAuthKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthKeys.swift; sourceTree = "<group>"; };
 		1DA2951628B926AB0079AC94 /* SearchRecipeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipeRouter.swift; sourceTree = "<group>"; };
 		1DA2951928B929270079AC94 /* SearchRecipeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipeConfigurator.swift; sourceTree = "<group>"; };
+		1DB163DD28FF02A500EEAA2F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		1DB1FA9128FBA55700B707D4 /* MockSearchRecipesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchRecipesAPI.swift; sourceTree = "<group>"; };
 		1DB4172428B7A2A800C19711 /* RecipeCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCellViewModel.swift; sourceTree = "<group>"; };
 		1DBA3F7728B9AC850087449C /* HealthFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFilters.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				1D7E68E828B807D5008A949E /* URLRequestBuilder.swift */,
 				1D7E68EA28B808B7008A949E /* NetworkService.swift */,
 				1DA2951328B8F3820079AC94 /* AppAuthKeys.swift */,
+				1DB163DD28FF02A500EEAA2F /* NetworkError.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -718,6 +721,7 @@
 				1DE8F5B428B654BA00C8FBBE /* ViewCodeConfiguration.swift in Sources */,
 				1D7E68EB28B808B7008A949E /* NetworkService.swift in Sources */,
 				1DE8F5D728B67CF100C8FBBE /* SplashView.swift in Sources */,
+				1DB163DE28FF02A500EEAA2F /* NetworkError.swift in Sources */,
 				1DA2951728B926AB0079AC94 /* SearchRecipeRouter.swift in Sources */,
 				1DE8F5CB28B65B9000C8FBBE /* UIView+Extensions.swift in Sources */,
 				1DE8F5CC28B65B9000C8FBBE /* UIButton+Extension.swift in Sources */,

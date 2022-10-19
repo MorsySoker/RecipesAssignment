@@ -16,15 +16,15 @@ final class SearchRecipesInteractorLogicSpy: SearchRecipesInteractorInput {
     var isGetSearchResultAtIndexPathCalled: Bool = false
     var isSaveSearchSuggestionsCalled: Bool = false
     
-    func search(WithKeyowrd query: String) {
+    func search(WithKeyowrd query: String, completion: (() -> Void)?) {
         isSearchWithKeyowrdCalled = true
     }
     
-    func filterResults(WithFilter filter: RecipesAssignment.HealthFilters) {
+    func filterResults(WithFilter filter: HealthFilters, completion: (() -> Void)?) {
         isFilterResultsWithFilterCalled = true
     }
     
-    func fetchNextPageForSearchResults() {
+    func fetchNextPageForSearchResults(completion: (() -> Void)?) {
         isFetchNextPageForSearchResultsCalled = true
     }
     

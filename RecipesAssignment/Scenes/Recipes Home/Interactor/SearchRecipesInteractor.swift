@@ -38,7 +38,7 @@ final class SearchRecipesInteractor {
 
 extension SearchRecipesInteractor: SearchRecipesInteractorInput {
     
-    func search(WithKeyowrd query: String) {
+    func search(WithKeyowrd query: String, completion: (() -> Void)? = nil) {
         
         let searchKeyword = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard searchKeyword != lastSearchkeyword else {
@@ -61,10 +61,13 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
                      to: to) { [unowned self] in
             self.lastSearchkeyword = searchKeyword
             self.isAPaginationRequest = false
+            if let completion {
+                completion()
+            }
         }
     }
     
-    func filterResults(WithFilter filter: HealthFilters) {
+    func filterResults(WithFilter filter: HealthFilters, completion: (() -> Void)? = nil) {
         
         guard filter != lastSearchFilter else { return }
         let filterRawValue = filter == .all ? nil : filter.rawValue
@@ -76,14 +79,27 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
                      to: to) { [unowned self] in
             self.isAPaginationRequest = false
             self.lastSearchFilter = filter
+            if let completion {
+                completion()
+            }
         }
     }
     
-    func fetchNextPageForSearchResults() {
-        guard hasMore,
+    func fetchNextPageForSearchResults(completion: (() -> Void)? = nil) {
+        
+        guard
               let service = serviceNetwork,
-              !service.isLoading,
-              from + to < totalItems else { return }
+              !service.isLoading else {
+            presenter?.interactor(self, didFailWith: NetworkError.networkIsLoading)
+            return
+        }
+        
+        guard hasMore,
+              from + to < totalItems else {
+            presenter?.interactor(self, didFailWith: SearchError.apiHasNoMoreToOffer)
+            return
+        }
+                
         
         from = to
         to = (from + 10) > totalItems ? (totalItems - from ) : ( from + 10 )
@@ -95,6 +111,9 @@ extension SearchRecipesInteractor: SearchRecipesInteractorInput {
                      from: from,
                      to: to) { [unowned self] in
             self.isAPaginationRequest = false
+            if let completion {
+                completion()
+            }
         }
     }
     

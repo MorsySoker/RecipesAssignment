@@ -10,8 +10,8 @@ import Foundation
 struct BaseResponse<Data: Codable>: Codable {
     
     let quary: String?
-    let from: Int?
-    let to: Int?
+    var from: Int?
+    var to: Int?
     let more: Bool?
     let totalItems: Int?
     var data: [Data]?

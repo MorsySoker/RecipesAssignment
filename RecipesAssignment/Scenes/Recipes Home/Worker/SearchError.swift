@@ -12,6 +12,7 @@ enum SearchError: Error {
     case emptySearch
     case invalidSearchKeyowrd
     case emptySearchSuggestion
+    case apiHasNoMoreToOffer
 }
 
 extension SearchError: LocalizedError {
@@ -26,6 +27,8 @@ extension SearchError: LocalizedError {
             
         case .emptySearchSuggestion:
             return NSLocalizedString("empty search suggestion", comment: "")
+        case .apiHasNoMoreToOffer:
+            return NSLocalizedString("There is no More Recipes we can offer with your search criteria", comment: "")
         }
     }
 }

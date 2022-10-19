@@ -126,7 +126,7 @@ extension SearchRecipesView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == searchResults.count - 1 {
-            interactor?.fetchNextPageForSearchResults()
+            interactor?.fetchNextPageForSearchResults(completion: nil)
             searchBar.showLoadingIndicator()
         }
     }
@@ -163,7 +163,7 @@ extension SearchRecipesView: UITextFieldDelegate {
             textField.resignFirstResponder()
             return true
         }
-        interactor?.search(WithKeyowrd: searchKeyword)
+        interactor?.search(WithKeyowrd: searchKeyword, completion: nil)
         textField.resignFirstResponder()
         searchBar.showLoadingIndicator()
         return true
@@ -227,7 +227,7 @@ extension SearchRecipesView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let filter = HealthFilters.allCases[indexPath.row]
-        interactor?.filterResults(WithFilter: filter)
+        interactor?.filterResults(WithFilter: filter, completion: nil)
         if let cell = collectionView.cellForItem(at: indexPath) as? HealthFilterCell {
             cell.contentView.backgroundColor = UIColor(named: "headerColor")
             cell.healthLbl.textColor = .white

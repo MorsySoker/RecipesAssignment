@@ -129,12 +129,13 @@ final class SearchRecipesInteractor_Tests: XCTestCase {
         let expectation = self.expectation(description: "Presenter Should Recive Recipes when search with Keyword Finish successfully")
         
         // When
-        sut.filterResults(WithFilter: .lowSugar)
-        expectation.fulfill()
+        sut.filterResults(WithFilter: .lowSugar) {
+            XCTAssert(presenterSpy.didFetchSearchOrFilterResults)
+            expectation.fulfill()
+        }
         
         // Then
         waitForExpectations(timeout: 5)
-        XCTAssert(presenterSpy.didFetchSearchOrFilterResults)
     }
     
     
@@ -152,36 +153,69 @@ final class SearchRecipesInteractor_Tests: XCTestCase {
         XCTAssertFalse(presenterSpy.didFetchSearchOrFilterResults, "Presenter Shouldnet Get A New Response When Same Filter Used Twice")
     }
     
-//    func test_SearchRecipesInteractor_filterResultsWithFilter_PresenterShouldReciveTheResonseFromNextPageWhenServiceIsnotLoading() {
-//        // Given
-//        let lastSearchKeyword = UUID().uuidString
-//        let searchKeyword = UUID().uuidString
-//        let sut = SearchRecipesInteractor(searchResult: MockResponse.response, searchkeyword: lastSearchKeyword, searchFilter: .all)
-//        let presenterSpy = SearchRecipesPresenterLogicSpy()
-//        let mockedService = MockSearchRecipesAPI(recipes: MockResponse.response, isLoading: false)
-//        sut.presenter = presenterSpy
-//        sut.serviceNetwork = mockedService
-//        let fetchNextPageExpectaion = self.expectation(description: "Presenter Should Recive Recipes From Next page when the service is not loading and the Api hasMore")
-//        let searchExpectation = self.expectation(description: "Make a search request to set the inital interactor properties")
-//
-//        sut.search(WithKeyowrd: searchKeyword)
-//        XCTAssert(presenterSpy.didFetchSearchOrFilterResults)
-//        searchExpectation.fulfill()
-//        wait(for: [searchExpectation], timeout: 5)
-//
-//        mockedService.response = MockResponse.nextPageResponse
-//
-//
-//        // When
-//        sut.fetchNextPageForSearchResults()
-//        fetchNextPageExpectaion.fulfill()
-//
-//        // Then
-//        wait(for: [fetchNextPageExpectaion], timeout: 5)
-//        XCTAssert(presenterSpy.didFetchNextPageResults)
-//    }
-//
-//    func test_SearchRecipesInteractor_filterResultsWithFilter_PresenterShouldNotReciveTheResonseFromNextPageWhenServiceIsLoading() {
+    func test_SearchRecipesInteractor_fetchNextPageForSearchResults_PresenterShouldReciveTheResonseFromNextPageWhenServiceIsnotLoading() {
+        // Given
+        let lastSearchKeyword = UUID().uuidString
+        let searchKeyword = UUID().uuidString
+        let sut = SearchRecipesInteractor(searchkeyword: lastSearchKeyword, searchFilter: .all)
+        let presenterSpy = SearchRecipesPresenterLogicSpy()
+        let mockedService = MockSearchRecipesAPI(recipes: MockResponse.response, isLoading: false)
+        sut.presenter = presenterSpy
+        sut.serviceNetwork = mockedService
+        let fetchNextPageExpectaion = self.expectation(description: "Presenter Should Recive Recipes From Next page when the service is not loading and the Api hasMore")
+        let searchExpectation = self.expectation(description: "Make a search request to set the inital interactor properties")
+        
+        sut.search(WithKeyowrd: searchKeyword) {
+            XCTAssert(presenterSpy.didFetchSearchOrFilterResults)
+            searchExpectation.fulfill()
+        }
+        
+        wait(for: [searchExpectation], timeout: 5)
+        
+        mockedService.response = MockResponse.nextPageResponse
+        
+        // When
+        sut.fetchNextPageForSearchResults() {
+            // Then
+            XCTAssert(presenterSpy.didFetchNextPageResults)
+            fetchNextPageExpectaion.fulfill()
+        }
+        
+    
+        wait(for: [fetchNextPageExpectaion], timeout: 5)
+        
+    }
+    
+    func test_SearchRecipesInteractor_fetchNextPageForSearchResults_PresenterShouldReciveAErrorWhenRequestNextPageIfServiceIsLoading() {
+        // Given
+        let lastSearchKeyword = UUID().uuidString
+        let searchKeyword = UUID().uuidString
+        let sut = SearchRecipesInteractor(searchkeyword: lastSearchKeyword, searchFilter: .all)
+        let presenterSpy = SearchRecipesPresenterLogicSpy()
+        let mockedService = MockSearchRecipesAPI(recipes: MockResponse.response, isLoading: true)
+        sut.presenter = presenterSpy
+        sut.serviceNetwork = mockedService
+
+        let searchExpectation = self.expectation(description: "Make a search request to set the inital interactor properties")
+        sut.search(WithKeyowrd: searchKeyword) {
+            XCTAssert(presenterSpy.didFetchSearchOrFilterResults)
+            searchExpectation.fulfill()
+        }
+        wait(for: [searchExpectation], timeout: 5)
+        
+        mockedService.response = MockResponse.nextPageResponse
+        let fetchNextPageExpectaion = self.expectation(description: "Presenter Should Recive An Error When Requesting Next Page If Service Is Still Loading")
+        // When
+        sut.fetchNextPageForSearchResults()
+        fetchNextPageExpectaion.fulfill()
+        
+        // Then
+        wait(for: [fetchNextPageExpectaion], timeout: 10)
+        XCTAssert(presenterSpy.didFailWith)
+        XCTAssertEqual(presenterSpy.failedWithError as? NetworkError, NetworkError.networkIsLoading)
+    }
+    
+//    func test_SearchRecipesInteractor_fetchNextPageForSearchResults_ItShouldKeepFetchingPagesUntilTheAPIHasNoMore() {
 //        // Given
 //        let lastSearchKeyword = UUID().uuidString
 //        let searchKeyword = UUID().uuidString
@@ -190,16 +224,33 @@ final class SearchRecipesInteractor_Tests: XCTestCase {
 //        let mockedService = MockSearchRecipesAPI(recipes: MockResponse.response, isLoading: true)
 //        sut.presenter = presenterSpy
 //        sut.serviceNetwork = mockedService
-//        let expectation = self.expectation(description: "Presenter Should Recive Recipes From Next page when the service is loading and the Api hasMore")
-//        sut.search(WithKeyowrd: searchKeyword)
+//        var nextResponse = MockResponse.response
+//        
+//        let searchExpectation = self.expectation(description: "Make a search request to set the inital interactor properties")
+//        sut.search(WithKeyowrd: searchKeyword) {
+//            XCTAssert(presenterSpy.didFetchSearchOrFilterResults)
+//            searchExpectation.fulfill()
+//        }
+//        wait(for: [searchExpectation], timeout: 5)
 //
-//        // When
-//        sut.fetchNextPageForSearchResults()
-//        expectation.fulfill()
+//        mockedService.response = MockResponse.nextPageResponse
+//        let fetchNextPageExpectaion = self.expectation(description: "Presenter Should Keep receving more data till the api has no more")
+//        fetchNextPageExpectaion.expectedFulfillmentCount = 10
+//        
+//        (0..<10).forEach { _ in
+//            // When
+//            sut.fetchNextPageForSearchResults() {
+//                // Then
+////                XCTAssert(presenterSpy.didFetchNextPageResults)
+//                fetchNextPageExpectaion.fulfill()
+//                nextResponse.to!+=1
+//                nextResponse.from!+=1
+//                mockedService.response = nextResponse
+//            }
+//        }
 //
 //        // Then
-//        waitForExpectations(timeout: 5)
-//        XCTAssertFalse(presenterSpy.didFetchNextPageResults)
+//        wait(for: [fetchNextPageExpectaion], timeout: 10)
 //    }
     
 }

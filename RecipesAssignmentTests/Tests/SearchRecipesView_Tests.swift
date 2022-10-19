@@ -51,4 +51,12 @@ final class SearchRecipesView_Tests: XCTestCase {
         let rowsCount = sut.recipesTableView.numberOfRows(inSection: 0)
         XCTAssertEqual(recipesViewModels.count, rowsCount)
     }
+    
+    func test_SearchRecipesView_NoOutletsShouldBeDisConnectedWhenViewDidAppear() {
+        
+        sut.viewDidLoad()
+        
+        XCTAssertNotNil(sut.recipesTableView)
+        XCTAssertNotNil(sut.healthFilterCollection)
+    }
 }

@@ -17,9 +17,9 @@ protocol SearchRecipesViewInput: AnyObject {
 }
 
 protocol SearchRecipesViewOutput: AnyObject {
-    func search(WithKeyowrd query: String)
-    func filterResults(WithFilter filter: HealthFilters)
-    func fetchNextPageForSearchResults()
+    func search(WithKeyowrd query: String, completion: (() -> Void)?)
+    func filterResults(WithFilter filter: HealthFilters, completion: (() -> Void)?)
+    func fetchNextPageForSearchResults(completion: (() -> Void)?)
     func getSearchResult(_ IndexPath: Int) -> Recipe
     func saveSearchSuggestions()
 }
