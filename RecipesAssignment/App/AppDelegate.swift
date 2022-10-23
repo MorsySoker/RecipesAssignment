@@ -10,28 +10,19 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-    let vc = SplashView()
+    private var appCoordinator: Coordinator!
+    private var navController: BaseNavigationController!
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        setMainInterface()
-        return true
-    }
-    
-    private func setMainInterface() {
-        
-        let navigation = UINavigationController(
-            rootViewController: vc)
-        navigation.navigationBar.isHidden = true
+        navController = BaseNavigationController()
         let frame = UIScreen.main.bounds
-        window = UIWindow(frame: frame)
+        let window = UIWindow(frame: frame)
+        window.rootViewController = navController
+        window.makeKeyAndVisible()
+        appCoordinator = AppCoordinator(presenting: navController, In: window)
+        appCoordinator.start()
 
-        window!.rootViewController = navigation
-        window!.makeKeyAndVisible()
-    }
-    
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        vc.applicationDidEnterBackground(application)
+        return true
     }
 }
 

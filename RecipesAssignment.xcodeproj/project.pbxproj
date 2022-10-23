@@ -14,6 +14,7 @@
 		1D48EF3628B64FD900BD436A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D48EF3528B64FD900BD436A /* Assets.xcassets */; };
 		1D48EF4328B6509F00BD436A /* SearchRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D48EF4228B6509F00BD436A /* SearchRecipesView.swift */; };
 		1D4F803728FC4CB40008CCBF /* MockResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4F803628FC4CB40008CCBF /* MockResponse.swift */; };
+		1D5D01B02900AE4B004A455E /* CoordinatorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D01AF2900AE4B004A455E /* CoordinatorProtocols.swift */; };
 		1D7E68E528B80632008A949E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 1D7E68E428B80632008A949E /* Alamofire */; };
 		1D7E68E928B807D5008A949E /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E68E828B807D5008A949E /* URLRequestBuilder.swift */; };
 		1D7E68EB28B808B7008A949E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7E68EA28B808B7008A949E /* NetworkService.swift */; };
@@ -71,6 +72,7 @@
 		1DE8F5DD28B6842400C8FBBE /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DE8F5DC28B6842400C8FBBE /* Colors.xcassets */; };
 		1DE8F5E128B684A600C8FBBE /* SearchRecipesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F5E028B684A600C8FBBE /* SearchRecipesPresenter.swift */; };
 		1DE8F5E328B684F200C8FBBE /* SearchRecipesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8F5E228B684F200C8FBBE /* SearchRecipesInteractor.swift */; };
+		1DED3CBB2902045C00F81DF9 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DED3CBA2902045C00F81DF9 /* BaseNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,7 @@
 		1D48EF3A28B64FD900BD436A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D48EF4228B6509F00BD436A /* SearchRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesView.swift; sourceTree = "<group>"; };
 		1D4F803628FC4CB40008CCBF /* MockResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockResponse.swift; sourceTree = "<group>"; };
+		1D5D01AF2900AE4B004A455E /* CoordinatorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocols.swift; sourceTree = "<group>"; };
 		1D7E68E828B807D5008A949E /* URLRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
 		1D7E68EA28B808B7008A949E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		1D7E68ED28B834B6008A949E /* SearchRecipesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesAPI.swift; sourceTree = "<group>"; };
@@ -147,6 +150,7 @@
 		1DE8F5DC28B6842400C8FBBE /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		1DE8F5E028B684A600C8FBBE /* SearchRecipesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesPresenter.swift; sourceTree = "<group>"; };
 		1DE8F5E228B684F200C8FBBE /* SearchRecipesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesInteractor.swift; sourceTree = "<group>"; };
+		1DED3CBA2902045C00F81DF9 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +263,14 @@
 				1DE8F5D828B67DE100C8FBBE /* Lottie */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		1D5D01AE2900AE1B004A455E /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				1D5D01AF2900AE4B004A455E /* CoordinatorProtocols.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		1D7E68E628B8073E008A949E /* Services */ = {
@@ -484,6 +496,7 @@
 		1DE8F5AF28B654BA00C8FBBE /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				1D5D01AE2900AE1B004A455E /* Coordinator */,
 				1DE8F5B028B654BA00C8FBBE /* ViewCodeConfiguration.swift */,
 				1DE8F5B128B654BA00C8FBBE /* BaseUI */,
 			);
@@ -495,6 +508,7 @@
 			children = (
 				1DE8F5B228B654BA00C8FBBE /* NibLoadingView.swift */,
 				1DE8F5B328B654BA00C8FBBE /* BaseViewController.swift */,
+				1DED3CBA2902045C00F81DF9 /* BaseNavigationController.swift */,
 			);
 			path = BaseUI;
 			sourceTree = "<group>";
@@ -730,6 +744,7 @@
 				1D8E5B0F28B94194004DB5A4 /* SearchTextField.swift in Sources */,
 				1DE8F5C828B65B9000C8FBBE /* UIImageView+Extension.swift in Sources */,
 				1DE8F5CA28B65B9000C8FBBE /* UIColor+Extension.swift in Sources */,
+				1DED3CBB2902045C00F81DF9 /* BaseNavigationController.swift in Sources */,
 				1D8D565028BA4DD500A2257E /* RecipeDetailPresenter.swift in Sources */,
 				1DE8F5D028B65B9000C8FBBE /* UILabel+Extensions.swift in Sources */,
 				1D8D564A28BA46EB00A2257E /* RecipeDetailInteractor.swift in Sources */,
@@ -745,6 +760,7 @@
 				1D8D564D28BA49E700A2257E /* DetailedRecipeViewModel.swift in Sources */,
 				1DE8F5E328B684F200C8FBBE /* SearchRecipesInteractor.swift in Sources */,
 				1DBA3F7B28B9B8E70087449C /* SearchSuggestionArray.swift in Sources */,
+				1D5D01B02900AE4B004A455E /* CoordinatorProtocols.swift in Sources */,
 				1DA2951428B8F3820079AC94 /* AppAuthKeys.swift in Sources */,
 				1D8D565328BA511200A2257E /* RecipeDetailConfigurator.swift in Sources */,
 				1D7E68F028B836FF008A949E /* SearchRecipesNetworking.swift in Sources */,
