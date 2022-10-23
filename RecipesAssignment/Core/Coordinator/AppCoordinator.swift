@@ -1,24 +1,22 @@
 //
-//  CoordinatorProtocols.swift
+//  AppCoordinator.swift
 //  RecipesAssignment
 //
-//  Created by MorsyElsokary on 20/10/2022.
+//  Created by MorsyElsokary on 24/10/2022.
 //
 
 import UIKit
 
-protocol Coordinator {
-    func start()
-}
 
 class AppCoordinator: Coordinator {
     
+    var childCoordinator: [Coordinator] = [Coordinator]()
     let window: UIWindow
-    var navContrroler: BaseNavigationController!
+    var navController: BaseNavigationController
     
     init(presenting navigationController: BaseNavigationController, In window: UIWindow) {
+        self.navController = navigationController
         self.window = window
-        self.navContrroler = navigationController
     }
     
     func start() {
@@ -26,6 +24,6 @@ class AppCoordinator: Coordinator {
     }
     
     private func showSplash() {
-        navContrroler.pushViewController(SplashView(), animated: true)
+        navController.pushViewController(SplashView(), animated: true)
     }
 }
